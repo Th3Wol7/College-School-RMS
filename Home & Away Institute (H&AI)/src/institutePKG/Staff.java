@@ -77,8 +77,4 @@ public class Staff extends User {
 				+ ", getTelephone()=" + getTelephone() + "]";
 	}
 
-	
-	
-	
-	
 }

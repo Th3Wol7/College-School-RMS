@@ -14,8 +14,7 @@ public class ProgrammeRecord {
 		this.maximumNumOfCourses = -1;
 		this.award = "N/A";
 		this.accreditation = "N/A";
-	}
-		
+	}		
 	
 	//Primary Constructor
 	public ProgrammeRecord(String programmeCode, String programmeName, int maximumNumOfCourses, String award,

@@ -11,15 +11,13 @@ public class Telephone {
 		this.prefix = 000;
 		this.serialNumber = 000;
 	}
-	
-	
+		
 	//Primary Constructor
 	public Telephone(int areaCode, int prefix, int serialNumber) {
 		this.areaCode = areaCode;
 		this.prefix = prefix;
 		this.serialNumber = serialNumber;
 	}
-	
 	
 	//Copy Constructor
 	public Telephone(Telephone obj) {

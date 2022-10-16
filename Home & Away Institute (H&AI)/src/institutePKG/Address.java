@@ -76,6 +76,4 @@ public class Address {
 				+ getState() + ", getCountry()=" + getCountry() + "]";
 	}
 
-
-
 }

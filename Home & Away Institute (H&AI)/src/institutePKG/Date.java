@@ -53,5 +53,4 @@ public class Date {
 		return "Date [getDay()=" + getDay() + ", getMonth()=" + getMonth() + ", getYear()=" + getYear() + "]";
 	}
 	
-	
 }

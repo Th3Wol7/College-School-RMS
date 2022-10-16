@@ -15,8 +15,7 @@ public class Student extends User{
 		this.enrollementStatus = "N/A";
 		this.userType = "Student";
 	}
-	
-		
+			
 	//Primary Constructor
 	Student(String firstName, String lastName, Date dOB, Address address, Telephone telephone, String studentID, Date dateEnrolled, 
 			String programmeCode, String enrollementStatus,  String password) {

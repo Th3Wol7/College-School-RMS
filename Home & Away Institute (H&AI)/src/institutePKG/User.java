@@ -102,9 +102,5 @@ public class User {
 				+ ", getAddress()=" + getAddress() + ", getTelephone()=" + getTelephone()  + "]";
 	}
 	
-	
-
-
-
 
 }

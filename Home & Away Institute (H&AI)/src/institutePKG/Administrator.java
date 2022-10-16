@@ -17,7 +17,4 @@ public class Administrator extends User {
 		super(firstName, lastName, dOB, address, telephone, password);
 	}
 	
-	//public Administrator(){
-		
-	//}
 }

@@ -80,6 +80,5 @@ public class Course {
 				+ ", getDescription()=" + getDescription() + ", getCredits()=" + getCredits() + ", getPrerequisite()="
 				+ getPrerequisite() + "]";
 	}
-	
-	
+		
 }
