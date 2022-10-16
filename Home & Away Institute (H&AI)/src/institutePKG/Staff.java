@@ -78,12 +78,23 @@ public class Staff extends User {
 				+ ", getTelephone()=" + getTelephone() + "]";
 	}
 	
-	
+	/*The system should accept student’s details and generate a 
+	 * student record. The student id number should be generated 
+	 * using the current year, programme code and a sequence that 
+	 * starts at zero (0), and the enrollment status should be set to zero (0)*/
 	public void registerStudent() {}
 	public void createProgram() {}
 	public void modifyProgramDetails() {}
+	
+	
+	//the system should accept a programme code then displays 
+	//the list of student currently enrolled in the programme
 	public void generateStudentList() {}
 	
+	
+	
+	//The system should display all courses in the programme
+	public void viewProgrammeDetails() {}
 	//File types: Staff, Student, Course, Programme
 
 }
