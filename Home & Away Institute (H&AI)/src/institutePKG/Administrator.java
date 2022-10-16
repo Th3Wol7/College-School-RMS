@@ -1,6 +1,6 @@
 package institutePKG;
 
-public class Administrator extends User {
+public class Administrator extends Staff {
 	private String AdminID;
 	
 	public Administrator(){
@@ -8,14 +8,12 @@ public class Administrator extends User {
 		this.lastName = "Admin";
 		this.dOB = new Date();
 		this.address = new Address();
-		this.telephone = new Telephone();
+		this.telephone = "N/A";
 		this.password = "$000#";
 		this.userType = "Administrator";
 	}
 	
-	public Administrator(String firstName, String lastName, Date dOB, Address address, Telephone telephone, String password){
-		super(firstName, lastName, dOB, address, telephone, password);
-	}
+	
 	
 	
 }

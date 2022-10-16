@@ -17,7 +17,7 @@ public class Staff extends User {
 	}
 	
 	//Primary Constructor
-	Staff(String firstName, String lastName, Date dOB, Address address, Telephone telephone, String staffID, 
+	Staff(String firstName, String lastName, Date dOB, Address address, String telephone, String staffID, 
 			String faculty, String department, Date dateEmployed, String password) {
 		super(firstName, lastName, dOB, address, telephone, password);
 		this.staffID = staffID;
@@ -37,6 +37,7 @@ public class Staff extends User {
 		this.userType = "Staff";
 	}
 
+	//Getters and Setters
 	public String getStaffID() {
 		return staffID;
 	}
@@ -77,5 +78,12 @@ public class Staff extends User {
 				+ ", getTelephone()=" + getTelephone() + "]";
 	}
 	
+	
+	public void registerStudent() {}
+	public void createProgram() {}
+	public void modifyProgramDetails() {}
+	public void generateStudentList() {}
+	
+	//File types: Staff, Student, Course, Programme
 
 }

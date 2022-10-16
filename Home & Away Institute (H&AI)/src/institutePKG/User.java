@@ -5,7 +5,7 @@ public class User {
 	protected String lastName;
 	protected Date dOB;
 	protected Address address;
-	protected Telephone telephone;
+	protected String telephone;
 	protected String password;
 	protected String userType;
 	
@@ -15,12 +15,12 @@ public class User {
 		this.lastName = "N/A";
 		this.dOB = new Date();
 		this.address = new Address();
-		this.telephone = new Telephone();
-		this.password = " ";
+		this.telephone = "N/A";
+		this.password = null;
 	}
 	
 	//Primary Constructor
-	 User(String firstName, String lastName, Date dOB, Address address, Telephone telephone, String password) {
+	 User(String firstName, String lastName, Date dOB, Address address, String telephone, String password) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.dOB = dOB;
@@ -72,11 +72,11 @@ public class User {
 		this.address = address;
 	}
 
-	public Telephone getTelephone() {
+	public String getTelephone() {
 		return telephone;
 	}
 
-	public void setTelephone(Telephone telephone) {
+	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
 	

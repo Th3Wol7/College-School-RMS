@@ -13,7 +13,7 @@ public class Course {
 		this.courseName = "N/A";
 		this.description = "N/A";
 		this.credits = -1;
-		this.prerequisite = "N/A";
+		this.prerequisite = "none";
 	}
 	
 	//Primary Consturctor

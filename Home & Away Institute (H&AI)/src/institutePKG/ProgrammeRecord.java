@@ -7,7 +7,7 @@ public class ProgrammeRecord {
 	private String award;
 	private String accreditation;
 	
-
+	//Default Constructor
 	public ProgrammeRecord() {
 		this.programmeCode = "N/A";
 		this.programmeName = "N/A";
@@ -26,7 +26,7 @@ public class ProgrammeRecord {
 		this.accreditation = accreditation;
 	}
 	
-	//cOPY cONSTRUCTOR
+	//Copy Constructor
 	public ProgrammeRecord(ProgrammeRecord obj) {
 		this.programmeCode = obj.programmeCode;
 		this.programmeName = obj.programmeName;
@@ -36,60 +36,42 @@ public class ProgrammeRecord {
 	}
 
 
-
+	//Getters and Setter
 	public String getProgrammeCode() {
 		return programmeCode;
 	}
-
-
 
 	public void setProgrammeCode(String programmeCode) {
 		this.programmeCode = programmeCode;
 	}
 
-
-
 	public String getProgrammeName() {
 		return programmeName;
 	}
-
-
 
 	public void setProgrammeName(String programmeName) {
 		this.programmeName = programmeName;
 	}
 
-
-
 	public int getMaximumNumOfCourses() {
 		return maximumNumOfCourses;
 	}
-
-
 
 	public void setMaximumNumOfCourses(int maximumNumOfCourses) {
 		this.maximumNumOfCourses = maximumNumOfCourses;
 	}
 
-
-
 	public String getAward() {
 		return award;
 	}
-
-
 
 	public void setAward(String award) {
 		this.award = award;
 	}
 
-
-
 	public String getAccreditation() {
 		return accreditation;
 	}
-
-
 
 	public void setAccreditation(String accreditation) {
 		this.accreditation = accreditation;

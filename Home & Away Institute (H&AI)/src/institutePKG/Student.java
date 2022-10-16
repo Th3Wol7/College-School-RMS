@@ -17,7 +17,7 @@ public class Student extends User{
 	}
 			
 	//Primary Constructor
-	Student(String firstName, String lastName, Date dOB, Address address, Telephone telephone, String studentID, Date dateEnrolled, 
+	Student(String firstName, String lastName, Date dOB, Address address, String telephone, String studentID, Date dateEnrolled, 
 			String programmeCode, String enrollementStatus,  String password) {
 		super(firstName, lastName, dOB, address, telephone, password);
 		this.studentID = studentID;
@@ -87,6 +87,14 @@ public class Student extends User{
 				+ ", getAddress()=" + getAddress() + ", getTelephone()=" + getTelephone() + ", toString()="
 				+ super.toString() + "]";
 	}
+	
+	
+	
+	public void enrollForSemester(){}
+	public void viewProgrammeDetails() {}
+	public void addCourse() {}
+	public void generateFees() {}
+	public void generateReport() {}
 	
 	
 }
