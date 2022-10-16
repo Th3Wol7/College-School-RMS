@@ -75,5 +75,6 @@ public class Address {
 		return "Address [getStreetNum()=" + getStreetNum() + ", getStreetName()=" + getStreetName() + ", getState()="
 				+ getState() + ", getCountry()=" + getCountry() + "]";
 	}
+	
 
 }

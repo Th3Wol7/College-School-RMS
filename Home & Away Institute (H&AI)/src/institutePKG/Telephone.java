@@ -26,7 +26,6 @@ public class Telephone {
 		this.serialNumber = obj.serialNumber;
 	}
 
-
 	public int getAreaCode() {
 		return areaCode;
 	}
