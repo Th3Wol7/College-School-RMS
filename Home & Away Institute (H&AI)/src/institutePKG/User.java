@@ -20,14 +20,25 @@ public class User {
 	}
 	
 	//Primary Constructor
-	 User(String firstName, String lastName, Date dOB, Address address, String telephone, String password) {
+	 User(String firstName, String lastName, int day, int month, int year, 
+			 String streetNum, String streetName, String State, String Country,
+			 String telephone) {
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.dOB = dOB;
-		this.address = address;
+		this.dOB = new Date(day, month, year);
+		this.address = new Address(streetNum, streetName, State, Country);
 		this.telephone = telephone;
-		this.password = password;
 	}
+	 
+	 
+	//Second Primary Constructor
+		 User(String firstName, String lastName, Date dOB, Address address, String telephone) {
+			this.firstName = firstName;
+			this.lastName = lastName;
+			this.dOB = dOB;
+			this.address = address;
+			this.telephone = telephone;
+		}
 	 
 	 //Copy Constructor
 	 User(User obj) {

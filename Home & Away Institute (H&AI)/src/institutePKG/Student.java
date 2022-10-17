@@ -12,29 +12,32 @@ public class Student extends User{
 		this.studentID = "N/A";
 		this.dateEnrolled = new Date();
 		this.programmeCode = "N/A";
-		this.enrollementStatus = "N/A";
+		this.enrollementStatus = "0";
 		this.userType = "Student";
 	}
 			
 	//Primary Constructor
-	Student(String firstName, String lastName, Date dOB, Address address, String telephone, String studentID, Date dateEnrolled, 
-			String programmeCode, String enrollementStatus,  String password) {
-		super(firstName, lastName, dOB, address, telephone, password);
-		this.studentID = studentID;
-		this.dateEnrolled = dateEnrolled;
+	Student(String firstName, String lastName, int dDay, int dMonth, int dYear, 
+			String streetNum, String streetName, String state, String country, 
+			String telephone, int day, int month, int year, String programmeCode) {
+		super(firstName, lastName, dDay, dMonth, dYear, streetNum, streetName, state, country, telephone);
+		setStudentID(studentID);
+		this.dateEnrolled = new Date(day, month, year);
 		this.programmeCode = programmeCode;
-		this.enrollementStatus = enrollementStatus;
+		this.enrollementStatus = "0";
 		this.userType = "Student";
+		this.password = lastName + studentID;
 	}
 	
 	//Copy Constructor
 	Student(Student obj) {
-		super(obj.firstName, obj.lastName, obj.dOB, obj.address, obj.telephone, obj.password);
-		this.studentID = obj.studentID;
+		super(obj.firstName, obj.lastName, obj.dOB, obj.address, obj.telephone);
+		setStudentID(obj.studentID);
 		this.dateEnrolled = obj.dateEnrolled;
 		this.programmeCode = obj.programmeCode;
-		this.enrollementStatus = obj.enrollementStatus;
-		this.userType = "Student";
+		obj.enrollementStatus = "0";
+		obj.userType = "Student";
+		obj.password = obj.lastName + obj.studentID;
 	}
 
 
@@ -43,7 +46,7 @@ public class Student extends User{
 		return studentID;
 	}
 
-
+	//Fix this
 	public void setStudentID(String studentID) {
 		this.studentID = studentID;
 	}
