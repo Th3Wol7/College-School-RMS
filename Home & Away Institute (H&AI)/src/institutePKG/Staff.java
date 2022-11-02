@@ -5,7 +5,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
-
+/*
+ * This class represents the model of a staff member of the H&AI
+ * institute. The private attributes represents the information
+ * being stored about a staff member as their names implies data
+ * The possible actions of each taff member is also native to the model.
+ * @author Tyrien Gilpin
+ * */
 public class Staff extends User {
 	private String staffID;
 	private String faculty;

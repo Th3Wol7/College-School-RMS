@@ -1,6 +1,6 @@
 package institutePKG;
 
-public class ProgrammeRecord {
+public class Programme{
 	private String programmeCode;
 	private String programmeName;
 	private int maximumNumOfCourses;
@@ -8,7 +8,7 @@ public class ProgrammeRecord {
 	private String accreditation;
 	
 	//Default Constructor
-	public ProgrammeRecord() {
+	public Programme() {
 		this.programmeCode = "N/A";
 		this.programmeName = "N/A";
 		this.maximumNumOfCourses = -1;
@@ -17,7 +17,7 @@ public class ProgrammeRecord {
 	}		
 	
 	//Primary Constructor
-	public ProgrammeRecord(String programmeCode, String programmeName, int maximumNumOfCourses, String award,
+	public Programme(String programmeCode, String programmeName, int maximumNumOfCourses, String award,
 			String accreditation) {
 		this.programmeCode = programmeCode;
 		this.programmeName = programmeName;
@@ -27,7 +27,7 @@ public class ProgrammeRecord {
 	}
 	
 	//Copy Constructor
-	public ProgrammeRecord(ProgrammeRecord obj) {
+	public Programme(Programme obj) {
 		this.programmeCode = obj.programmeCode;
 		this.programmeName = obj.programmeName;
 		this.maximumNumOfCourses = obj.maximumNumOfCourses;
