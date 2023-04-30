@@ -2,42 +2,34 @@ package model;
 
 public class Student extends User {
     private String studentID;
-    private Date dateEnrolled;
-    private String programmeCode;
-    private String enrollementStatus;
+    private StudentDetail details;
 
     //Primary Constructor
-    Student() {
+    public Student() {
         super();
         this.studentID = "N/A";
-        this.dateEnrolled = new Date();
-        this.programmeCode = "N/A";
-        this.enrollementStatus = "0";
         this.userType = "Student";
+        this.details = new StudentDetail();
     }
 
     //Primary Constructor
     Student(String firstName, String lastName, int dDay, int dMonth, int dYear,
             String streetNum, String streetName, String state, String country,
-            String telephone, int day, int month, int year, String programmeCode) {
+            String telephone, StudentDetail studentDetail) {
         super(firstName, lastName, dDay, dMonth, dYear, streetNum, streetName, state, country, telephone);
         setStudentID(studentID);
-        this.dateEnrolled = new Date(day, month, year);
-        this.programmeCode = programmeCode;
-        this.enrollementStatus = "0";
         this.userType = "Student";
         this.password = lastName + studentID;
+        this.details = studentDetail;
     }
 
     //Copy Constructor
     Student(Student obj) {
         super(obj.firstName, obj.lastName, obj.dOB, obj.address, obj.telephone);
         setStudentID(obj.studentID);
-        this.dateEnrolled = obj.dateEnrolled;
-        this.programmeCode = obj.programmeCode;
-        obj.enrollementStatus = "0";
-        obj.userType = "Student";
-        obj.password = obj.lastName + obj.studentID;
+        this.setUserType(obj.userType);
+        this.setPassword(obj.lastName + obj.studentID);
+        this.setDetails(obj.details);
     }
 
 
@@ -46,51 +38,32 @@ public class Student extends User {
         return studentID;
     }
 
-    //Fix this
     public void setStudentID(String studentID) {
         this.studentID = studentID;
     }
 
-
-    public Date getDateEnrolled() {
-        return dateEnrolled;
+    public StudentDetail getDetails() {
+        return details;
     }
 
-
-    public void setDateEnrolled(Date dateEnrolled) {
-        this.dateEnrolled = dateEnrolled;
+    public void setDetails(StudentDetail details) {
+        this.details = details;
     }
-
-
-    public String getProgrammeCode() {
-        return programmeCode;
-    }
-
-
-    public void setProgrammeCode(String programmeCode) {
-        this.programmeCode = programmeCode;
-    }
-
-
-    public String getEnrollementStatus() {
-        return enrollementStatus;
-    }
-
-
-    public void setEnrollementStatus(String enrollementStatus) {
-        this.enrollementStatus = enrollementStatus;
-    }
-
 
     @Override
     public String toString() {
-        return "Student [getStudentID()=" + getStudentID() + ", getDateEnrolled()=" + getDateEnrolled()
-                + ", getProgrammeCode()=" + getProgrammeCode() + ", getEnrollementStatus()=" + getEnrollementStatus()
-                + ", getFirstName()=" + getFirstName() + ", getLastName()=" + getLastName() + ", getdOB()=" + getdOB()
-                + ", getAddress()=" + getAddress() + ", getTelephone()=" + getTelephone() + ", toString()="
-                + super.toString() + "]";
+        return "Student{" +
+                "studentID='" + studentID + '\'' +
+                ", details=" + details +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", dOB=" + dOB +
+                ", address=" + address +
+                ", telephone='" + telephone + '\'' +
+                ", password='" + password + '\'' +
+                ", userType='" + userType + '\'' +
+                '}';
     }
-
 
     public void enrollForSemester() {
     }
