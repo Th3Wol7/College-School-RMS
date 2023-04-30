@@ -1,4 +1,4 @@
-package institutePKG;
+package model;
 
 public class Address {
 	private String streetNum;
@@ -34,26 +34,21 @@ public class Address {
 		return streetNum;
 	}
 
-
 	public void setStreetNum(String streetNum) {
 		this.streetNum = streetNum;
 	}
-
 
 	public String getStreetName() {
 		return streetName;
 	}
 
-
 	public void setStreetName(String streetName) {
 		this.streetName = streetName;
 	}
 
-
 	public String getState() {
 		return state;
 	}
-
 
 	public void setState(String state) {
 		this.state = state;
@@ -64,17 +59,14 @@ public class Address {
 		return country;
 	}
 
-
 	public void setCountry(String country) {
 		this.country = country;
 	}
-
 
 	@Override
 	public String toString() {
 		return "Address [getStreetNum()=" + getStreetNum() + ", getStreetName()=" + getStreetName() + ", getState()="
 				+ getState() + ", getCountry()=" + getCountry() + "]";
 	}
-	
 
 }

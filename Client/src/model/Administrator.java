@@ -1,4 +1,4 @@
-package institutePKG;
+package model;
 
 public class Administrator extends Staff {
 	private String AdminID;

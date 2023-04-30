@@ -1,4 +1,4 @@
-package institutePKG;
+package model;
 
 public class Course {
 	private String courseCode;
