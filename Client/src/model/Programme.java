@@ -3,6 +3,7 @@ package model;
 public class Programme{
 	private String programmeCode;
 	private String programmeName;
+	private String accreditation;// BSC, Diploma, Masters etc
 	private int numOfCourses;
 	private String length;
 	private String Description;
@@ -13,6 +14,7 @@ public class Programme{
 	public Programme() {
 		setProgrammeCode("N/A");
 		setProgrammeName("N/A");
+		setAccreditation("N/A");
 		setDescription("N/A");
 		setNumOfCourses(-1);
 		setMinimumCredits(-1);
@@ -21,10 +23,11 @@ public class Programme{
 	}		
 	
 	//Primary Constructor
-	public Programme(String programmeCode, String programmeName, String description, int numOfCourses, int totalCredits,
-			String length, double cost) {
+	public Programme(String programmeCode, String programmeName, String accreditation, String description,
+					 int numOfCourses, int totalCredits, String length, double cost) {
 		setProgrammeCode(programmeCode);
 		setProgrammeName(programmeName);
+		setAccreditation(accreditation);
 		setNumOfCourses(numOfCourses);
 		setDescription(description);
 		setMinimumCredits(totalCredits);
@@ -36,6 +39,7 @@ public class Programme{
 	public Programme(Programme obj) {
 		setProgrammeCode(obj.getProgrammeCode());
 		setProgrammeName(obj.getProgrammeName());
+		setAccreditation(obj.getAccreditation());
 		setNumOfCourses(obj.getNumOfCourses());
 		setDescription(obj.getDescription());
 		setMinimumCredits(obj.getMinimumCredits());
@@ -61,6 +65,13 @@ public class Programme{
 		this.programmeName = programmeName;
 	}
 
+	public String getAccreditation() {
+		return accreditation;
+	}
+
+	public void setAccreditation(String accreditation) {
+		this.accreditation = accreditation;
+	}
 	public int getNumOfCourses() {
 		return numOfCourses;
 	}
@@ -104,13 +115,14 @@ public class Programme{
 	@Override
 	public String toString() {
 		return "Programme{" +
-				"programmeCode='" + programmeCode + '\'' +
-				", programmeName='" + programmeName + '\'' +
-				", numOfCourses=" + numOfCourses +
-				", length='" + length + '\'' +
-				", Description='" + Description + '\'' +
-				", cost=" + cost +
-				", minimumCredits=" + minimumCredits +
+				"programmeCode='" + getProgrammeCode() + '\'' +
+				", programmeName='" + getProgrammeName() + '\'' +
+				", Accreditation='" + getAccreditation() + '\'' +
+				", numOfCourses=" + getNumOfCourses() +
+				", length='" + getLength() + '\'' +
+				", Description='" + getDescription() + '\'' +
+				", cost=" + getCost() +
+				", minimumCredits=" + getMinimumCredits() +
 				'}';
 	}
 }

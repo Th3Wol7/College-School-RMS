@@ -8,49 +8,49 @@ public class User {
 	protected String telephone;
 	protected String password;
 	protected String userType;
-	
+
 	//Default Constructor
 	User(){
-		this.firstName = "N/A";
-		this.lastName = "N/A";
-		this.dOB = new Date();
-		this.address = new Address();
-		this.telephone = "N/A";
-		this.password = null;
+		setFirstName("N/A");
+		setLastName("N/A");
+		setdOB(new Date());
+		setAddress(new Address());
+		setTelephone("N/A");
+		setPassword(null);
 	}
-	
-	//Primary Constructor
-	 User(String firstName, String lastName, int day, int month, int year, 
-			 String streetNum, String streetName, String State, String Country,
-			 String telephone) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.dOB = new Date(day, month, year);
-		this.address = new Address(streetNum, streetName, State, Country);
-		this.telephone = telephone;
-	}
-	 
-	 
-	//Second Primary Constructor
-		 User(String firstName, String lastName, Date dOB, Address address, String telephone) {
-			this.firstName = firstName;
-			this.lastName = lastName;
-			this.dOB = dOB;
-			this.address = address;
-			this.telephone = telephone;
-		}
-	 
-	 //Copy Constructor
-	 User(User obj) {
-			this.firstName = obj.firstName;
-			this.lastName = obj.lastName;
-			this.dOB = obj.dOB;
-			this.address = obj.address;
-			this.telephone = obj.telephone;
-			this.password = obj.password;
-		}
 
-	 //Getters and setters
+	//Primary Constructor
+	User(String firstName, String lastName, int day, int month, int year,
+		 String streetNum, String streetName, String State, String Country,
+		 String telephone) {
+		setFirstName(firstName);
+		setLastName(lastName);
+		setdOB(new Date(day, month, year));
+		setAddress(new Address(streetNum, streetName, State, Country));
+		setTelephone(telephone);
+	}
+
+
+	//Second Primary Constructor
+	User(String firstName, String lastName, Date dOB, Address address, String telephone) {
+		setFirstName(firstName);
+		setLastName(lastName);
+		setdOB(dOB);
+		setAddress(address);
+		setTelephone(telephone);
+	}
+
+	//Copy Constructor
+	User(User obj) {
+		setFirstName(obj.firstName);
+		setLastName(obj.lastName);
+		setdOB(obj.dOB);
+		setAddress(obj.address);
+		setTelephone(obj.telephone);
+		setPassword(obj.password);
+	}
+
+	//Getters and setters
 	public String getFirstName() {
 		return firstName;
 	}
@@ -90,7 +90,7 @@ public class User {
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
-	
+
 	public String getUserType() {
 		return userType;
 	}
@@ -98,7 +98,7 @@ public class User {
 	public void setUserType(String userType) {
 		this.userType = userType;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
@@ -112,7 +112,5 @@ public class User {
 		return "User [getFirstName()=" + getFirstName() + ", getLastName()=" + getLastName() + ", getdOB()=" + getdOB()
 				+ ", getAddress()=" + getAddress() + ", getTelephone()=" + getTelephone()  + "]";
 	}
-	
-	
 
 }

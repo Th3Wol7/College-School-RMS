@@ -8,25 +8,25 @@ public class Address {
 	
 	// Default Constructor
 	public Address() {
-		this.streetNum = "N/A";
-		this.streetName = "N/A";
-		this.state = "N/A";
-		this.country = "N/A";
+		setStreetNum("N/A");
+		setStreetName("N/A");
+		setState("N/A");
+		setCountry("N/A");
 	}
 	
 	//Primary Constructor
 	public Address(String streetNum, String streetName, String state, String country) {
-		this.streetNum = streetNum;
-		this.streetName = streetName;
-		this.state = state;
-		this.country = country;
+		setStreetNum(streetNum);
+		setStreetName(streetName);
+		setState(state);
+		setCountry(country);
 	}
 
 	public Address(Address obj) {
-		this.streetNum = obj.streetNum;
-		this.streetName = obj.streetName;
-		this.state = obj.state;
-		this.country = obj.country;
+		setStreetNum(obj.streetNum);
+		setStreetName(obj.streetName);
+		setState(obj.state);
+		setCountry(obj.country);
 	}
 	
 	//Getters and Setters
@@ -53,7 +53,6 @@ public class Address {
 	public void setState(String state) {
 		this.state = state;
 	}
-
 
 	public String getCountry() {
 		return country;

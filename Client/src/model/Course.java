@@ -9,29 +9,29 @@ public class Course {
 	
 	//Default Constructor
 	public Course() {
-		this.courseCode = "N/A";
-		this.courseName = "N/A";
-		this.description = "N/A";
-		this.credits = -1;
-		this.prerequisite = "none";
+		setCourseCode("N/A");
+		setCourseName("N/A");
+		setDescription("N/A");
+		setCredits(-1);
+		setPrerequisite("none");
 	}
 	
-	//Primary Consturctor
+	//Primary Constructor
 	public Course(String courseCode, String courseName, String description, int credits, String prerequisite) {
-		this.courseCode = courseCode;
-		this.courseName = courseName;
-		this.description = description;
-		this.credits = credits;
-		this.prerequisite = prerequisite;
+		setCourseCode(courseCode);
+		setCourseName(courseName);
+		setDescription(description);
+		setCredits(credits);
+		setPrerequisite(prerequisite);
 	}
 	
 	//Copy Construcor
 	public Course(Course obj) {
-		this.courseCode = obj.courseCode;
-		this.courseName = obj.courseName;
-		this.description = obj.description;
-		this.credits = obj.credits;
-		this.prerequisite = obj.prerequisite;
+		setCourseCode(obj.courseCode);
+		setCourseName(obj.courseName);
+		setDescription(obj.description);
+		setCredits(obj.credits);
+		setPrerequisite(obj.prerequisite);
 	}
 
 	public String getCourseCode() {
@@ -80,6 +80,5 @@ public class Course {
 				+ ", getDescription()=" + getDescription() + ", getCredits()=" + getCredits() + ", getPrerequisite()="
 				+ getPrerequisite() + "]";
 	}
-	
-		
+
 }

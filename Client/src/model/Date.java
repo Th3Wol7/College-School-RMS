@@ -6,23 +6,23 @@ public class Date {
 	private int year;
 	
 	Date() {
-		this.day = 0;
-		this.month = 00;
-		this.year = 0000;
+		setDay(0);
+		setMonth(00);
+		setYear(0000);
 	}
 	
 	//Primary Constructor
 	Date(int day, int month, int year) {
-		this.day = day;
-		this.month = month;
-		this.year = year;
+		setDay(day);
+		setMonth(month);
+		setYear(year);
 	}
 	
 	//Copy Constructor
 	Date(Date obj) {
-		this.day = obj.day;
-		this.month = obj.month;
-		this.year = obj.year;
+		setDay(obj.day);
+		setMonth(obj.month);
+		setYear(obj.year);
 	}
 	public int getDay() {
 		return day;
@@ -52,6 +52,5 @@ public class Date {
 	public String toString() {
 		return "Date [getDay()=" + getDay() + ", getMonth()=" + getMonth() + ", getYear()=" + getYear() + "]";
 	}
-	
-	
+
 }

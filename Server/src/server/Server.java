@@ -3,28 +3,23 @@ package server;
 
 import model.Student;
 
-import java.awt.HeadlessException;
+import javax.swing.*;
+import java.awt.*;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
 public class Server {///NTS: Revisit all operations method
+    private static Connection dBConn = null;
     private ServerSocket serverSocket;
     private Socket connectionSocket;
     private ObjectOutputStream objOs;
     private ObjectInputStream objIs;
-    private static Connection dBConn = null;
     private Statement stmt;
     private ResultSet result = null;
 
@@ -32,6 +27,22 @@ public class Server {///NTS: Revisit all operations method
     public Server() {
         this.createConnection();
         this.waitForRequest();
+    }
+
+    private static Connection getDatabaseConnection() {
+
+        try {
+            String url = "jdbc:mysql://localhost:3306/lab7bd";
+            dBConn = DriverManager.getConnection(url, "root", "");
+
+            JOptionPane.showMessageDialog(null, "Database Connection Established", "Connection Success", JOptionPane.INFORMATION_MESSAGE);
+        } catch (HeadlessException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Could not connect to database\n" + e, "Connection Failure", JOptionPane.ERROR_MESSAGE);
+        }
+
+        return dBConn;
     }
 
     private void createConnection() {
@@ -59,23 +70,6 @@ public class Server {///NTS: Revisit all operations method
         }
     }
 
-
-    private static Connection getDatabaseConnection() {
-
-        try {
-            String url = "jdbc:mysql://localhost:3306/lab7bd";
-            dBConn = DriverManager.getConnection(url, "root", "");
-
-            JOptionPane.showMessageDialog(null, "Database Connection Established", "Connection Success", JOptionPane.INFORMATION_MESSAGE);
-        } catch (HeadlessException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Could not connect to database\n" + e, "Connection Failure", JOptionPane.ERROR_MESSAGE);
-        }
-
-        return dBConn;
-    }
-
     private void CloseConnection() {
         try {
             objOs.close();
@@ -88,7 +82,8 @@ public class Server {///NTS: Revisit all operations method
     // Adding student to database
 
     private void addStudentToFile(Student student) {
-        String sql = "INSERT INTO lab7bd.`students` (id, firstName, lastName, day, month,year, streetNum, streetName, State, Country, telephone, dateEnrolled, programme, Status;)" + "VALUES ('" + student.getId()
+        String sql = "INSERT INTO lab7bd.`students` (id, firstName, lastName, day, month,year, streetNum, streetName, " +
+                "State, Country, telephone, dateEnrolled, programme, Status;)" + "VALUES ('" + student.getStudentID()
                 + "', '" + student.getFirstName() + "', '" + student.getLastName() + "', '" + student.getDetails().getEmail()
                 + "');";
         try {

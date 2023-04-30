@@ -3,36 +3,48 @@ package model;
 public class Programme{
 	private String programmeCode;
 	private String programmeName;
-	private int maximumNumOfCourses;
-	private String award;
-	private String accreditation;
-	
+	private String accreditation;// BSC, Diploma, Masters etc
+	private int numOfCourses;
+	private String length;
+	private String Description;
+	private double cost;
+	private int minimumCredits = -1;
+
 	//Default Constructor
 	public Programme() {
-		this.programmeCode = "N/A";
-		this.programmeName = "N/A";
-		this.maximumNumOfCourses = -1;
-		this.award = "N/A";
-		this.accreditation = "N/A";
-	}		
-	
-	//Primary Constructor
-	public Programme(String programmeCode, String programmeName, int maximumNumOfCourses, String award,
-			String accreditation) {
-		this.programmeCode = programmeCode;
-		this.programmeName = programmeName;
-		this.maximumNumOfCourses = maximumNumOfCourses;
-		this.award = award;
-		this.accreditation = accreditation;
+		setProgrammeCode("N/A");
+		setProgrammeName("N/A");
+		setAccreditation("N/A");
+		setDescription("N/A");
+		setNumOfCourses(-1);
+		setMinimumCredits(-1);
+		setLength("N/A");
+		setCost(0.0);
 	}
-	
+
+	//Primary Constructor
+	public Programme(String programmeCode, String programmeName, String accreditation, String description,
+					 int numOfCourses, int totalCredits, String length, double cost) {
+		setProgrammeCode(programmeCode);
+		setProgrammeName(programmeName);
+		setAccreditation(accreditation);
+		setNumOfCourses(numOfCourses);
+		setDescription(description);
+		setMinimumCredits(totalCredits);
+		setLength(length);
+		setCost(cost);
+	}
+
 	//Copy Constructor
 	public Programme(Programme obj) {
-		this.programmeCode = obj.programmeCode;
-		this.programmeName = obj.programmeName;
-		this.maximumNumOfCourses = obj.maximumNumOfCourses;
-		this.award = obj.award;
-		this.accreditation = obj.accreditation;
+		setProgrammeCode(obj.getProgrammeCode());
+		setProgrammeName(obj.getProgrammeName());
+		setAccreditation(obj.getAccreditation());
+		setNumOfCourses(obj.getNumOfCourses());
+		setDescription(obj.getDescription());
+		setMinimumCredits(obj.getMinimumCredits());
+		setLength(obj.getLength());
+		setCost(obj.getCost());
 	}
 
 
@@ -53,22 +65,6 @@ public class Programme{
 		this.programmeName = programmeName;
 	}
 
-	public int getMaximumNumOfCourses() {
-		return maximumNumOfCourses;
-	}
-
-	public void setMaximumNumOfCourses(int maximumNumOfCourses) {
-		this.maximumNumOfCourses = maximumNumOfCourses;
-	}
-
-	public String getAward() {
-		return award;
-	}
-
-	public void setAward(String award) {
-		this.award = award;
-	}
-
 	public String getAccreditation() {
 		return accreditation;
 	}
@@ -76,16 +72,57 @@ public class Programme{
 	public void setAccreditation(String accreditation) {
 		this.accreditation = accreditation;
 	}
+	public int getNumOfCourses() {
+		return numOfCourses;
+	}
 
+	public void setNumOfCourses(int numOfCourses) {
+		this.numOfCourses = numOfCourses;
+	}
 
+	public String getLength() {
+		return length;
+	}
+
+	public void setLength(String length) {
+		this.length = length;
+	}
+
+	public String getDescription() {
+		return Description;
+	}
+
+	public void setDescription(String description) {
+		Description = description;
+	}
+
+	public double getCost() {
+		return cost;
+	}
+
+	public void setCost(double cost) {
+		this.cost = cost;
+	}
+
+	public int getMinimumCredits() {
+		return minimumCredits;
+	}
+
+	public void setMinimumCredits(int minimumCredits) {
+		this.minimumCredits = minimumCredits;
+	}
 
 	@Override
 	public String toString() {
-		return "ProgrammeRecord [getProgrammeCode()=" + getProgrammeCode() + ", getProgrammeName()="
-				+ getProgrammeName() + ", getMaximumNumOfCourses()=" + getMaximumNumOfCourses() + ", getAward()="
-				+ getAward() + ", getAccreditation()=" + getAccreditation() + "]";
+		return "Programme{" +
+				"programmeCode='" + getProgrammeCode() + '\'' +
+				", programmeName='" + getProgrammeName() + '\'' +
+				", Accreditation='" + getAccreditation() + '\'' +
+				", numOfCourses=" + getNumOfCourses() +
+				", length='" + getLength() + '\'' +
+				", Description='" + getDescription() + '\'' +
+				", cost=" + getCost() +
+				", minimumCredits=" + getMinimumCredits() +
+				'}';
 	}
-	
-	
-	
 }
