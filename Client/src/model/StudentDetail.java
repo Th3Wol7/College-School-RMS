@@ -13,35 +13,32 @@ public class StudentDetail {
 
     //Primary Constructor
     public StudentDetail() {
-        this.studentID = "N/A";
-        this.dateEnrolled = new Date();
-        this.programmeCode = "N/A";
-        this.enrollmentStatus = "0";
-        this.email = "N/A";
-        enrolledCourses = new ArrayList<>();
+        setStudentID("N/A");
+        setDateEnrolled(new Date());
+        setProgrammeCode("N/A");
+        setEnrollmentStatus("0");
+        setEmail("N/A");
+        setEnrolledCourses(new ArrayList<>());
     }
 
     //Primary Constructor
     StudentDetail(String ID, int enrollDay, int enrollMonth, int enrollYear, String programmeCode, String status, String email, List<Course> enrolledCourses) {
-        this.studentID = ID;
-        this.dateEnrolled = new Date(enrollDay, enrollMonth, enrollYear);
-        this.programmeCode = programmeCode;
-        this.enrollmentStatus = "0";
-        this.email = email;
-        this.enrolledCourses = enrolledCourses;
+        setStudentID(ID);
+        setDateEnrolled(new Date(enrollDay, enrollMonth, enrollYear));
+        setProgrammeCode(programmeCode);
+        setEnrollmentStatus("0");
+        setEmail(email);
+        setEnrolledCourses(enrolledCourses);
     }
 
     //Copy Constructor
     StudentDetail(Student obj) {
         setStudentID(obj.getStudentID());
-        obj.userType = "Student";
-        obj.password = obj.lastName + obj.getStudentID();
-        this.studentID = obj.getStudentID();
-        this.dateEnrolled = obj.getDetails().getDateEnrolled();
-        this.programmeCode = obj.getDetails().getProgrammeCode();
-        this.enrollmentStatus = obj.getDetails().getEnrollmentStatus();
-        this.email = obj.getDetails().getEmail();
-        this.enrolledCourses = obj.getDetails().getEnrolledCourses();
+        setDateEnrolled(obj.getDetails().getDateEnrolled());
+        setProgrammeCode(obj.getDetails().getProgrammeCode());
+        setEnrollmentStatus(obj.getDetails().getEnrollmentStatus());
+        setEmail(obj.getDetails().getEmail());
+        setEnrolledCourses(obj.getDetails().getEnrolledCourses());
     }
 
     //Getters and setters`
@@ -96,12 +93,12 @@ public class StudentDetail {
     @Override
     public String toString() {
         return "StudentDetail{" +
-                "studentID='" + studentID + '\'' +
-                ", dateEnrolled=" + dateEnrolled +
-                ", programmeCode='" + programmeCode + '\'' +
-                ", enrollmentStatus='" + enrollmentStatus + '\'' +
-                ", email='" + email + '\'' +
-                ", enrolledCourses=" + enrolledCourses +
+                "studentID='" + getStudentID() + '\'' +
+                ", dateEnrolled=" + getDateEnrolled() +
+                ", programmeCode='" + getProgrammeCode() + '\'' +
+                ", enrollmentStatus='" + getEnrollmentStatus() + '\'' +
+                ", email='" + getEmail() + '\'' +
+                ", enrolledCourses=" + getEnrolledCourses() +
                 '}';
     }
 
