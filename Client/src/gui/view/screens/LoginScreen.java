@@ -11,7 +11,9 @@ https://pngtree.com/freepng/book-learning-stationery-combination-map_5506167.htm
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.RoundRectangle2D;
+import java.util.Objects;
+
+import static java.awt.Font.*;
 
 public class LoginScreen implements ActionListener {
     final int panWidth = 1000;
@@ -31,17 +33,13 @@ public class LoginScreen implements ActionListener {
     private static JLabel welcomeLabel1, welcomeLabel2;
     private static JLabel instituteLabel1, instituteLabel2;
     private static JLabel picLabel;
-
     private static Icon mainIcon;
-
     private static JTextField userName;
     private static JTextArea userSwap;
-
     private static JPasswordField passwordField;
-
     private static JToggleButton adminButton;
     private static JButton loginButton;
-    private JFrame frame;
+    private final JFrame frame;
     private JToggleButton swapButton;
 
     public LoginScreen(JFrame frame) {
@@ -57,10 +55,10 @@ public class LoginScreen implements ActionListener {
         userLogColor = new Color(216, 227, 241);
         userPicColor = new Color(65, 172, 158);
 
-        Oswald = new Font("Oswald", Font.TYPE1_FONT, 15);
-        Font oswald_Small = new Font("Oswald", Font.TYPE1_FONT, 10);
+        Oswald = new Font("Oswald", BOLD, 15);
+        Font oswald_Small = new Font("Oswald", BOLD, 10);
 
-        mainIcon = new ImageIcon(new ImageIcon(MainScreen.class.getResource("/gui/res/loginImage.png")).getImage()
+        mainIcon = new ImageIcon(new ImageIcon(Objects.requireNonNull(MainScreen.class.getResource("/gui/res/loginImage.png"))).getImage()
                 .getScaledInstance(300, 350, Image.SCALE_DEFAULT));
 
         // Assigns default image to variable
@@ -70,22 +68,22 @@ public class LoginScreen implements ActionListener {
         instituteLabel1 =  new JLabel("Home & Away");
         instituteLabel1.setBounds(130, 390, 500, uih+20);
         instituteLabel1.setForeground(Color.WHITE);
-        instituteLabel1.setFont(new Font("Oswald", Font.TYPE1_FONT, 34));
+        instituteLabel1.setFont(new Font("Oswald", BOLD, 34));
 
         instituteLabel2 = new JLabel("University");
         instituteLabel2.setBounds(160, 450, 250, 50);
         instituteLabel2.setForeground(Color.WHITE);
-        instituteLabel2.setFont(new Font("Oswald", Font.TYPE1_FONT, 34));
+        instituteLabel2.setFont(new Font("Oswald", BOLD, 34));
 
         welcomeLabel1 = new JLabel("Record", SwingConstants.CENTER);
         welcomeLabel1.setBounds(150, 120, 200, 50);
         welcomeLabel1.setForeground(Color.BLACK);
-        welcomeLabel1.setFont(new Font("Oswald", Font.TYPE1_FONT, 34));
+        welcomeLabel1.setFont(new Font("Oswald", BOLD, 34));
 
         welcomeLabel2 = new JLabel("Management", SwingConstants.CENTER);
         welcomeLabel2.setBounds(130, 170, 250, 50);
         welcomeLabel2.setForeground(Color.BLACK);
-        welcomeLabel2.setFont(new Font("Oswald", Font.TYPE1_FONT, 34));
+        welcomeLabel2.setFont(new Font("Oswald", BOLD, 34));
 
         userName = new JTextField(25);
         userName.setText("username");
@@ -157,7 +155,7 @@ public class LoginScreen implements ActionListener {
         FrameUtility.addExitButton();
         FrameUtility.exitButton.setBounds(455, 0, 50, 35);
         userPanel.add(FrameUtility.exitButton);
-        FrameUtility.exitButton.setFont(new Font("oswald", Font.PLAIN, 20));
+        FrameUtility.exitButton.setFont(new Font("oswald", PLAIN, 20));
 
         userPanel.add(welcomeLabel1);
         userPanel.add(welcomeLabel2);
@@ -248,7 +246,7 @@ public class LoginScreen implements ActionListener {
             loginPanel.setVisible(false);
             loginPanel.removeAll();
             frame.remove(loginPanel);
-            //new HomeScreen(frame, User);
+            new BaseScreen(frame);
         }
     }
 
