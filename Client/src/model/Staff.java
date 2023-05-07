@@ -21,35 +21,35 @@ public class Staff extends User {
 	//Default Constructor
 	Staff() {
 		super();
-		this.staffID = "N/A";
-		this.faculty = "N/A";
-		this.department = "N/A";
-		this.dateEmployed = new Date();
-		this.userType = "Staff";
+		setStaffID("N/A");
+		setFaculty("N/A");
+		setDepartment("N/A");
+		setDateEmployed(new Date());
+		setUserType("Staff");
 	}
 	
 	//Primary Constructor
 	Staff(String firstName, String lastName,int dDay, int dMonth, int dYear, 
 			String streetNum, String streetName, String state, String country,
-			String telephone, String faculty, String department, Date dateEmployed) {	
-		setStaffID(staffID);
-		this.faculty = faculty;
-		this.department = department;
-		this.dateEmployed = dateEmployed;
-		this.userType = "Staff";
-		setStaffID(staffID);
+			String telephone, String faculty, String department, Date dateEmployed, String password) {
+		super(firstName, lastName, dDay, dMonth, dYear, streetNum, streetName, state, country, telephone);
+		setStaffID(getStaffID());
+		setFaculty(faculty);
+		setDepartment(department);
+		setDateEmployed(dateEmployed);
+		setUserType("Staff");
+		setPassword(password);
 	}
 	
 	//Copy Constructor
 	Staff(Staff obj) {
 		super(obj.firstName, obj.lastName, obj.dOB, obj.address, obj.telephone);
 		setStaffID(obj.staffID);
-		this.staffID = obj.staffID;
-		this.faculty = obj.faculty;
-		this.department = obj.department;
-		this.dateEmployed = obj.dateEmployed;
-		obj.userType = "Staff";
-		setStaffID(obj.password);
+		setFaculty(obj.faculty);
+		setDepartment(obj.department);
+		setDateEmployed(obj.dateEmployed);
+		setUserType("Staff");
+		setPassword(obj.password);
 	}
 
 	//Getters and Setters
@@ -139,75 +139,9 @@ public class Staff extends User {
 		
 	//Program to accept and generate a student
 	public Student generateStudentData() {
-		Scanner input = new Scanner(System.in);
-		String firstName,lastName, streetNum, streetName,  state, country, programmeCode, telephone;
-		int dDay, dMonth, dYear, day, month, year, select; 
-		  
-		System.out.println("\nEnter student first name: ");
-		firstName = input.next();
-			
-		System.out.println("\nEnter student last name: ");
-		lastName = input.next();
-		
-		System.out.println("\nEnter day of birth: ");
-		dDay = input.nextInt();
-		
-		System.out.println("\nEnter month of birth: ");
-		dMonth = input.nextInt();
-		
-		System.out.println("\nEnter year of birth: ");
-		dYear = input.nextInt();
-		
-		System.out.println("\nEnter street number ");
-		streetNum = input.next();
-		
-		System.out.println("\nEnter street name: ");
-		streetName = input.next();
-		
-		System.out.println("\nEnter state: ");
-		state = input.next();
-		
-		System.out.println("\nEnter country of origin: ");
-		country = input.next();
-		
-		System.out.println("\nEnter student telephone number: ");
-		telephone= input.next();
-		
-		System.out.println("\nEnter programme code: ");
-		programmeCode = input.next();
-		
-		while(checkprogrammeExistence(programmeCode)!= true) {
-			System.out.println("\nInvalid programme code. \nPress: \n1. To re-enter programme code.");
-			System.out.println("\n2. To create a new programme using program code.");
-			select = input.nextInt();
-			if(select == 1) {
-				programmeCode = input.next();
-			}else if(select ==2){
-				createProgram();
-			}else {
-				System.out.println("\nInvalid selction. \nPress: \n1. To re-enter programme code.");
-				System.out.println("\n2. To create a new programme using program code.");
-				select = input.nextInt();
-			}
-		}
-		
-		System.out.println("Enter day enrolled: ");
-		day = input.nextInt();
-		
-		System.out.println("Enter month of enrollment: ");
-		month = input.nextInt();
-		
-		System.out.println("Enter year enrolled: ");
-		year = input.nextInt();
-
-		Student student = new Student(firstName, lastName, dDay, dMonth, dYear, 
-									  streetNum, streetName, state, country, telephone, 
-									  day, month, year, programmeCode);
-		input.close();	
-		return student;
+		return null;
 	}
-	
-	
+
 	//Registering student and add data to file
 	public boolean registerStudent() {	
 		Student student = generateStudentData();
@@ -217,15 +151,15 @@ public class Staff extends User {
 			outFileStream1 = new FileWriter(new File("Students.dat"), true);
 			outFileStream2 = new FileWriter(new File("StudentsEnrolled.dat"), true);
 		
-			String registerStudent = student.getStudentID() + "\t" + student.getFirstName() + " " + student.getLastName() + "\t" + 
-							student.getdOB()  + "\t" +  student.getTelephone()  + "\t" + student.getAddress()+ "\t" + student.getProgrammeCode()+ 
-							"\t" + student.getPassword();
+			//String registerStudent = student.getStudentID() + "\t" + student.getFirstName() + " " + student.getLastName() + "\t" +
+			//				student.getdOB()  + "\t" +  student.getTelephone()  + "\t" + student.getAddress()+ "\t" + student.getProgrammeCode()+
+			//				"\t" + student.getPassword();
 			
-			String studentEnrolled =  student.getStudentID() + "\t" + student.getFirstName() + " " + student.getLastName() + "\t" + 
-									student.getProgrammeCode()+ "\t" + student.getDateEnrolled() + student.getEnrollementStatus();
+			//String studentEnrolled =  student.getStudentID() + "\t" + student.getFirstName() + " " + student.getLastName() + "\t" +
+			//						student.getProgrammeCode()+ "\t" + student.getDateEnrolled() + student.getEnrollementStatus();
 			
-			outFileStream1.write(registerStudent);
-			outFileStream2.write(studentEnrolled);
+			//outFileStream1.write(registerStudent);
+			//outFileStream2.write(studentEnrolled);
 			
 			return true;
 		}catch(IOException e) {
