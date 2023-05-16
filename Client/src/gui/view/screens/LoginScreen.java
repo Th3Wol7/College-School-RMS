@@ -106,7 +106,7 @@ public class LoginScreen implements ActionListener {
 
         loginButton = new JButton("Login");
         loginButton.setBounds(200, 420, 100, uih);
-        loginButton.setOpaque(false);
+        loginButton.setOpaque(true);
         loginButton.setFocusPainted(false);
         loginButton.setContentAreaFilled(false);
         loginButton.setForeground(Color.BLACK);
@@ -155,7 +155,7 @@ public class LoginScreen implements ActionListener {
         FrameUtility.addExitButton();
         FrameUtility.exitButton.setBounds(455, 0, 50, 35);
         userPanel.add(FrameUtility.exitButton);
-        FrameUtility.exitButton.setFont(new Font("oswald", PLAIN, 20));
+        FrameUtility.exitButton.setFont(new Font("oswald", PLAIN, 16));
 
         userPanel.add(welcomeLabel1);
         userPanel.add(welcomeLabel2);

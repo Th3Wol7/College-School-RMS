@@ -14,7 +14,6 @@ import java.util.Objects;
 
 public class BaseScreen implements ActionListener {//NTS: Primary panel is what you add stuff to
     private static Font Oswald;
-    private static Color buttonColor;
     private static JPanel sidePanel, primaryPanel, userPanel;
     private static JLabel Logo;
     private static Icon defaultLogoIcon;
@@ -34,7 +33,7 @@ public class BaseScreen implements ActionListener {//NTS: Primary panel is what 
     public void initializeComponents() {
         frame.setLayout(new BorderLayout());
         Oswald = new Font("Oswald", Font.BOLD, 15);
-        buttonColor = new Color(0, 0, 0);
+        Color buttonColor = new Color(0, 0, 0);
 
         try {
             // Assigns default image to variable
@@ -178,7 +177,7 @@ public class BaseScreen implements ActionListener {//NTS: Primary panel is what 
         }
         if (e.getSource().equals(profileButton)) {
             primaryPanel.removeAll();
-            //primaryPanel.add(new ProfileScreen(user));
+            primaryPanel.add(new ProfileScreen());
             primaryPanel.repaint();
             primaryPanel.revalidate();
         }

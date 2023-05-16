@@ -22,7 +22,8 @@ public class StudentDetail {
     }
 
     //Primary Constructor
-    StudentDetail(String ID, int enrollDay, int enrollMonth, int enrollYear, String programmeCode, String status, String email, List<Course> enrolledCourses) {
+    StudentDetail(String ID, int enrollDay, int enrollMonth, int enrollYear, String programmeCode, String status,
+                  String email, List<Course> enrolledCourses) {
         setStudentID(ID);
         setDateEnrolled(new Date(enrollDay, enrollMonth, enrollYear));
         setProgrammeCode(programmeCode);
