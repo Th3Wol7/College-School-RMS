@@ -38,7 +38,7 @@ public class BaseScreen implements ActionListener {//NTS: Primary panel is what 
         Color buttonColor = new Color(0, 0, 0);
 
         try {
-            //Settign look and feel of application to that similar to the LAF of the user's system
+            //Setting look and feel of application to that similar to the LAF of the user's system
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
             // Assigns default image to variable
@@ -203,7 +203,6 @@ public class BaseScreen implements ActionListener {//NTS: Primary panel is what 
 
         }
         if (e.getSource().equals(studentButton)) {
-            primaryPanel.removeAll();
             //primaryPanel.setViewportView(new ProgrammeScreen(user));
             primaryPanel.repaint();
             primaryPanel.revalidate();
