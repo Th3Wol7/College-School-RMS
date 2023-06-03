@@ -1,4 +1,5 @@
 package gui.view.screens;
+
 /*This class represents the Initial home Screen of the application
  * @author Tyrien Gilpin
  * Version 1
@@ -14,7 +15,8 @@ import java.util.Objects;
 
 public class BaseScreen implements ActionListener {//NTS: Primary panel is what you add stuff to
     private static Font Oswald;
-    private static JPanel sidePanel, primaryPanel, userPanel;
+    private static JPanel sidePanel, userPanel;
+    JScrollPane primaryPanel;
     private static JLabel Logo;
     private static Icon defaultLogoIcon;
     private static JButton profileButton, courseButton;
@@ -36,6 +38,9 @@ public class BaseScreen implements ActionListener {//NTS: Primary panel is what 
         Color buttonColor = new Color(0, 0, 0);
 
         try {
+            //Settign look and feel of application to that similar to the LAF of the user's system
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+
             // Assigns default image to variable
             defaultLogoIcon = new ImageIcon(new ImageIcon(Objects.requireNonNull(MainScreen.class.getResource("/gui/res/loginImage.png"))).getImage()
                     .getScaledInstance(150, 170, Image.SCALE_DEFAULT));
@@ -48,7 +53,7 @@ public class BaseScreen implements ActionListener {//NTS: Primary panel is what 
 
         userPanel = new JPanel();//main panel that covers frame
         sidePanel = new JPanel(); //side panels that holds main button
-        primaryPanel = new JPanel();//panel that changes it screen
+        primaryPanel = new JScrollPane();//panel that changes it screen
 
         // Setting panel background colour
         sidePanel.setBackground(new Color(65, 172, 158));
@@ -56,7 +61,13 @@ public class BaseScreen implements ActionListener {//NTS: Primary panel is what 
 
         // sets layout to be null, to allow for free placement of JComponenets
         primaryPanel.setBackground(new Color(242, 242, 242));
-        primaryPanel.setLayout(null);
+        primaryPanel.setPreferredSize(new Dimension(400, 400));
+        primaryPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        primaryPanel.getVerticalScrollBar().setPreferredSize(new Dimension(10, 0));
+        primaryPanel.getVerticalScrollBar().setUnitIncrement(16);
+
+        // Set the system scrollpane border
+        primaryPanel.setBorder(BorderFactory.createEmptyBorder());
 
         userPanel.setBounds(0, 0, panWidth, panHeight);
         userPanel.setLocation(0, 0);
@@ -69,7 +80,7 @@ public class BaseScreen implements ActionListener {//NTS: Primary panel is what 
         FrameUtility.exitButton.setForeground(buttonColor);
         primaryPanel.add(FrameUtility.exitButton);
 
-        // adds created panels to main Panel
+        //adds created panels to main Panel
         sidePanel.setPreferredSize(new Dimension(200, 600));
         userPanel.add(sidePanel, BorderLayout.WEST);
 
@@ -170,34 +181,30 @@ public class BaseScreen implements ActionListener {//NTS: Primary panel is what 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource().equals(homeButton)) {
-            primaryPanel.removeAll();
-            //primaryPanel.add(new HomeScreen(user));
+            //primaryPanel.setViewportView(new HomeScreen(user));
             primaryPanel.repaint();
             primaryPanel.revalidate();
         }
         if (e.getSource().equals(profileButton)) {
-            primaryPanel.removeAll();
-            primaryPanel.add(new ProfileScreen());
+            primaryPanel.setViewportView(new ProfileScreen());
             primaryPanel.repaint();
             primaryPanel.revalidate();
         }
         if (e.getSource().equals(courseButton)) {
-            primaryPanel.removeAll();
-            //primaryPanel.add(new CourseScreen(user));
+            primaryPanel.setViewportView(new CourseScreen());
             primaryPanel.repaint();
             primaryPanel.revalidate();
 
         }
         if (e.getSource().equals(programmeButton)) {
-            primaryPanel.removeAll();
-            //primaryPanel.add(new ProgrammeScreen(user));
+  //        primaryPanel.setViewportView(new ProgrammeScreen(user));
             primaryPanel.repaint();
             primaryPanel.revalidate();
 
         }
         if (e.getSource().equals(studentButton)) {
             primaryPanel.removeAll();
-            //primaryPanel.add(new ProgrammeScreen(user));
+            //primaryPanel.setViewportView(new ProgrammeScreen(user));
             primaryPanel.repaint();
             primaryPanel.revalidate();
         }

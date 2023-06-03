@@ -44,7 +44,7 @@ public class ProfileScreen extends JPanel implements ActionListener {
         // .getScaledInstance(100, 60, Image.SCALE_DEFAULT));
         // Logo = new JLabel(profileIcon);
         FrameUtility.addExitButton();
-        FrameUtility.exitButton.setBounds(755, 0, 45, 45);
+        FrameUtility.exitButton.setBounds(745, 0, 45, 45);
         FrameUtility.exitButton.setForeground(Color.BLACK);
         this.add(FrameUtility.exitButton);
         Font fieldFont = new Font("Oswald", Font.BOLD, 15);
@@ -261,9 +261,11 @@ public class ProfileScreen extends JPanel implements ActionListener {
     }
 
     public void setWindowProperties() {
-        this.setSize(800, 600);
+        this.setPreferredSize(new Dimension(710, 1500));
         this.setBackground(new Color(253, 252, 252));/// (new Color(216, 227, 241));
         this.setLayout(null);
+        //this.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        //this.setVerticalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
     }
 
     public void registerListeners() {
