@@ -9,7 +9,7 @@ import java.util.Scanner;
  * This class represents the model of a staff member of the H&AI
  * institute. The private attributes represents the information
  * being stored about a staff member as their names implies data
- * The possible actions of each taff member is also native to the model.
+ * The possible actions of each staff member is also native to the model.
  * @author Tyrien Gilpin
  * */
 public class Staff extends User {
@@ -17,6 +17,7 @@ public class Staff extends User {
 	private String faculty;
 	private String department;
 	private Date dateEmployed;
+	private String occupation;
 	
 	//Default Constructor
 	Staff() {
@@ -31,12 +32,13 @@ public class Staff extends User {
 	//Primary Constructor
 	Staff(String firstName, String lastName,int dDay, int dMonth, int dYear, 
 			String streetNum, String streetName, String state, String country,
-			String telephone, String faculty, String department, Date dateEmployed, String password) {
+			String telephone, String faculty, String department, Date dateEmployed, String occupation, String password) {
 		super(firstName, lastName, dDay, dMonth, dYear, streetNum, streetName, state, country, telephone);
 		setStaffID(getStaffID());
 		setFaculty(faculty);
 		setDepartment(department);
 		setDateEmployed(dateEmployed);
+		setOccupation(occupation);
 		setUserType("Staff");
 		setPassword(password);
 	}
@@ -44,10 +46,11 @@ public class Staff extends User {
 	//Copy Constructor
 	Staff(Staff obj) {
 		super(obj.firstName, obj.lastName, obj.dOB, obj.address, obj.telephone);
-		setStaffID(obj.staffID);
-		setFaculty(obj.faculty);
-		setDepartment(obj.department);
-		setDateEmployed(obj.dateEmployed);
+		setStaffID(obj.getStaffID());
+		setFaculty(obj.getFaculty());
+		setDepartment(obj.getDepartment());
+		setDateEmployed(obj.getDateEmployed());
+		setOccupation(obj.getOccupation());
 		setUserType("Staff");
 		setPassword(obj.password);
 	}
@@ -89,15 +92,34 @@ public class Staff extends User {
 		this.dateEmployed = dateEmployed;
 	}
 
+	public String getOccupation() {
+		return occupation;
+	}
+
+	public void setOccupation(String Occupation) {
+		this.occupation = Occupation;
+	}
+
 	@Override
 	public String toString() {
-		return "Staff [getStaffID()=" + getStaffID() + ", getFaculty()=" + getFaculty() + ", getDepartment()="
-				+ getDepartment() + ", getDateEmployed()=" + getDateEmployed() + ", getFirstName()=" + getFirstName()
-				+ ", getLastName()=" + getLastName() + ", getdOB()=" + getdOB() + ", getAddress()=" + getAddress()
-				+ ", getTelephone()=" + getTelephone() + "]";
+		return "Staff{" +
+				"staffID='" + staffID + '\'' +
+				", faculty='" + faculty + '\'' +
+				", department='" + department + '\'' +
+				", dateEmployed=" + dateEmployed +
+				", occupation='" + occupation + '\'' +
+				", userID='" + userID + '\'' +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", dOB=" + dOB +
+				", address=" + address +
+				", telephone='" + telephone + '\'' +
+				", password='" + password + '\'' +
+				", userType='" + userType + '\'' +
+				'}';
 	}
-	
-	/*The system should accept student’s details and generate a 
+
+	/*The system should accept student’s details and generate a
 	 * student record. The student id number should be generated 
 	 * using the current year, programme code and a sequence that 
 	 * starts at zero (0), and the enrollment status should be set to zero (0)*/

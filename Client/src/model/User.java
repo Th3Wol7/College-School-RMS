@@ -1,6 +1,8 @@
 package model;
 
 public class User {
+
+	String userID;
 	protected String firstName;
 	protected String lastName;
 	protected Date dOB;
@@ -11,6 +13,7 @@ public class User {
 	
 	//Default Constructor
 	User(){
+		setUserID("C!AN");
 		setFirstName("N/A");
 		setLastName("N/A");
 		setdOB(new Date());
@@ -20,9 +23,10 @@ public class User {
 	}
 	
 	//Primary Constructor
-	 User(String firstName, String lastName, int day, int month, int year, 
+	 User(String userID, String firstName, String lastName, int day, int month, int year,
 			 String streetNum, String streetName, String State, String Country,
 			 String telephone) {
+		setUserID(userID);
 		setFirstName(firstName);
 		setLastName(lastName);
 		setdOB(new Date(day, month, year));
@@ -32,7 +36,8 @@ public class User {
 	 
 	 
 	//Second Primary Constructor
-		 User(String firstName, String lastName, Date dOB, Address address, String telephone) {
+		 User(String userID, String firstName, String lastName, Date dOB, Address address, String telephone) {
+			setUserID(userID);
 			setFirstName(firstName);
 			setLastName(lastName);
 			setdOB(dOB);
@@ -42,6 +47,7 @@ public class User {
 	 
 	 //Copy Constructor
 	 User(User obj) {
+		    setUserID(obj.userID);
 			setFirstName(obj.firstName);
 			setLastName(obj.lastName);
 			setdOB(obj.dOB);
@@ -50,6 +56,12 @@ public class User {
 			setPassword(obj.password);
 		}
 
+	public String getUserID() {
+		return userID;
+	}
+	public void setUserID(String userID) {
+		this.userID = userID;
+	}
 	 //Getters and setters
 	public String getFirstName() {
 		return firstName;
@@ -109,8 +121,15 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [getFirstName()=" + getFirstName() + ", getLastName()=" + getLastName() + ", getdOB()=" + getdOB()
-				+ ", getAddress()=" + getAddress() + ", getTelephone()=" + getTelephone()  + "]";
+		return "User{" +
+				"userID='" + userID + '\'' +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", dOB=" + dOB +
+				", address=" + address +
+				", telephone='" + telephone + '\'' +
+				", password='" + password + '\'' +
+				", userType='" + userType + '\'' +
+				'}';
 	}
-
 }

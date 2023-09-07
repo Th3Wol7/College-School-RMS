@@ -7,7 +7,6 @@ public class Student extends User {
     //Primary Constructor
     public Student() {
         super();
-        setStudentID("N/A");
         setUserType("Student");
         setDetails(new StudentDetail());
     }
@@ -16,8 +15,7 @@ public class Student extends User {
     Student(String studentID, String firstName, String lastName, int dDay, int dMonth, int dYear,
             String streetNum, String streetName, String state, String country,
             String telephone, StudentDetail studentDetail) {
-        super(firstName, lastName, dDay, dMonth, dYear, streetNum, streetName, state, country, telephone);
-        setStudentID(studentID);
+        super(studentID, firstName, lastName, dDay, dMonth, dYear, streetNum, streetName, state, country, telephone);
         setUserType("Student");
         setPassword(lastName + studentID);
         setDetails(studentDetail);
@@ -25,8 +23,7 @@ public class Student extends User {
 
     //Copy Constructor
     Student(Student obj) {
-        super(obj.getFirstName(), obj.getLastName(), obj.getdOB(), obj.getAddress(), obj.getTelephone());
-        setStudentID(obj.getStudentID());
+        super(obj.getStudentID(), obj.getFirstName(), obj.getLastName(), obj.getdOB(), obj.getAddress(), obj.getTelephone());
         setUserType(obj.getUserType());
         setPassword(obj.getLastName() + obj.getStudentID());
         setDetails(obj.getDetails());
@@ -35,11 +32,11 @@ public class Student extends User {
 
     //Getters and setters`
     public String getStudentID() {
-        return studentID;
+        return super.getUserID();
     }
 
     public void setStudentID(String studentID) {
-        this.studentID = studentID;
+        super.setUserID(studentID);
     }
 
     public StudentDetail getDetails() {

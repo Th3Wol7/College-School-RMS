@@ -1,6 +1,118 @@
 package server;
 
+import factories.DBConnectorFactory;
+import factories.SessionFactoryBuilder;
+import model.*;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
+import java.io.EOFException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+
+/*The purpose of this class is to receive, process and respond to requests from the server*/
+
+public class Server{
+    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm:ss");
+    private int requestAmount = 1;
+    private ServerSocket serverSocket;
+    private Socket clientSocket;
+    private ObjectOutputStream objOs;
+    private ObjectInputStream objIs;
+
+    public Server() {
+        createConnection();
+        DBConnectorFactory.getDatabaseConnection();
+        waitForRequests();
+    }
+    private void createConnection() {
+        try {
+            serverSocket = new ServerSocket(8888);
+            serverSocket.setReuseAddress(true);
+        } catch (IOException e) {
+            logger.error("IOException: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void configureStreams() {
+        try {
+            objOs = new ObjectOutputStream(clientSocket.getOutputStream());
+            objIs = new ObjectInputStream(clientSocket.getInputStream());
+        } catch (IOException e) {
+            logger.error("IOException: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void closeConnections() {
+        try {
+            objOs.close();
+            objIs.close();
+            clientSocket.close();
+        } catch (IOException e) {
+            logger.error("IOException: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void waitForRequests() {
+        mainScreen = new MainScreen(serverSocket);
+        splashScreen.dispose();
+        mainScreen.setVisible(true);
+        logger.info("Sever is running");
+        try {
+            // running infinite loop for getting client request
+            while (true) {
+                // get current local time
+                LocalDateTime localDateTime = LocalDateTime.now();
+
+                // socket object to receive incoming clientSocket requests
+                clientSocket = serverSocket.accept();
+
+                String clientConnected = "Client connected: " + clientSocket.getInetAddress().getHostAddress() +
+                        " @ " + localDateTime.format(dateTimeFormatter);
+
+                // Displaying that new client is connected to server
+                logger.info(clientConnected);
+
+                // Update text area
+                mainScreen.setTextArea(clientConnected);
+
+                // create a new thread object
+                ClientHandler clientHandler = new ClientHandler();
+
+                // This thread will handle the client separately
+                new Thread(clientHandler).start();
+            }
+        } catch (SocketException e) {
+            logger.warn("SocketException: " + e.getMessage());
+        } catch (IOException e) {
+            logger.warn("IOException: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            try {
+                serverSocket.close();
+            } catch (IOException e) {
+                logger.error("IOException: " + e.getMessage());
+            }
+        }
+    }
+
+
+}
+
+
+/*
 import model.Student;
 
 import javax.swing.*;
@@ -208,3 +320,4 @@ public class Server {///NTS: Revisit all operations method
         }
     }
 }
+*/
