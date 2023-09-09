@@ -1,6 +1,6 @@
 package factories;
 
-import model.User;
+import model.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
@@ -20,14 +20,10 @@ public class SessionFactoryBuilder {
             if (sessionFactory == null) {
                 configuration.configure("xml/hibernate.cfg.xml")
                         .addAnnotatedClass(Address.class)
-                        .addAnnotatedClass(Administrator.class)
                         .addAnnotatedClass(Course.class)
-                        .addAnnotatedClass(Date.class)
                         .addAnnotatedClass(Programme.class)
                         .addAnnotatedClass(Staff.class)
                         .addAnnotatedClass(Student.class)
-                        .addAnnotatedClass(StudentDetail.class)
-                        .addAnnotatedClass(Telephone.class)
                         .addAnnotatedClass(User.class);
                 sessionFactory = configuration.buildSessionFactory();
             }

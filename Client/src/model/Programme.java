@@ -1,13 +1,37 @@
 package model;
 
-public class Programme{
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
+
+@Entity(name = "programme")
+@Table(name = "Programmes")
+public class Programme implements Serializable{
+	@Id
+	@Column(name = "programmeCode")
 	private String programmeCode;
+
+	@Column(name = "programmeName")
 	private String programmeName;
+
+	@Column(name = "accreditation")
 	private String accreditation;// BSC, Diploma, Masters etc
+
+	@Column(name = "numOfCourses")
 	private int numOfCourses;
+
+	@Column(name = "yearsOfStudy")
 	private String length;
+
+	@Column(name = "description")
 	private String Description;
+
+	@Column(name = "cost")
 	private double cost;
+
+	@Column(name = "totalCredits")
 	private int minimumCredits = -1;
 
 	//Default Constructor

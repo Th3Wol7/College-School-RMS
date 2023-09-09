@@ -4,20 +4,20 @@ public class Date {
 	private int day;
 	private int month;
 	private int year;
-
+	
 	Date() {
 		setDay(0);
 		setMonth(00);
 		setYear(0000);
 	}
-
+	
 	//Primary Constructor
 	Date(int day, int month, int year) {
 		setDay(day);
 		setMonth(month);
 		setYear(year);
 	}
-
+	
 	//Copy Constructor
 	Date(Date obj) {
 		setDay(obj.day);

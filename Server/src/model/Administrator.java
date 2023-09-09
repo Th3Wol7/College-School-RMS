@@ -15,9 +15,9 @@ public class Administrator extends Staff {
 
 	//The system should accept general programme details
 	public void createProgramme() {}
-
-
-	//The system should allow for the addition, removal, and
+	
+	
+	//The system should allow for the addition, removal, and 
 	//editing of courses for the programme.
 	public void modifyProgrammeDetails() {}
 

@@ -1,35 +1,61 @@
 package model;
 
-public class Student extends User {
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "Student")
+public class Student extends User implements Serializable {
+    @Id
+    @JoinColumn(name = "ID")
+    @OneToOne(mappedBy = "ID", cascade = CascadeType.ALL)
     private String studentID;
-    private StudentDetail details;
+    @Column(name = "dateEnrolled")
+    @Temporal(TemporalType.DATE)
+    private Date dateEnrolled;
+    @ManyToOne
+    @JoinColumn(name = "programmeCode")
+    private String programmeCode;
+    @Column(name = "enrollmentStatus")
+    private String enrollmentStatus;
+    @OneToMany(mappedBy = "courseCode")
+    List<Course> enrolledCourses = new ArrayList<>();
 
     //Primary Constructor
     public Student() {
         super();
-        setStudentID("N/A");
         setUserType("Student");
-        setDetails(new StudentDetail());
+        setStudentID("N/A");
+        setDateEnrolled(new Date());
+        setProgrammeCode("N/A");
+        setEnrollmentStatus("0");
+        setEnrolledCourses(new ArrayList<>());
     }
 
     //Primary Constructor
-    Student(String studentID, String firstName, String lastName, int dDay, int dMonth, int dYear,
-            String streetNum, String streetName, String state, String country,
-            String telephone, StudentDetail studentDetail) {
-        super(firstName, lastName, dDay, dMonth, dYear, streetNum, streetName, state, country, telephone);
-        setStudentID(studentID);
+    Student(String studentID, String firstName, String lastName, Date dob, Address address, String telephone,
+            Date enrollDate, String programmeCode, String status, String email, List<Course> enrolledCourses) {
+        super(studentID, firstName, lastName, dob, email, address, telephone);
+        setDateEnrolled(enrollDate);
+        setProgrammeCode(programmeCode);
+        setEnrollmentStatus(status);
+        setEnrolledCourses(enrolledCourses);
         setUserType("Student");
         setPassword(lastName + studentID);
-        setDetails(studentDetail);
     }
 
     //Copy Constructor
     Student(Student obj) {
-        super(obj.getFirstName(), obj.getLastName(), obj.getdOB(), obj.getAddress(), obj.getTelephone());
-        setStudentID(obj.getStudentID());
+        super(obj.getStudentID(), obj.getFirstName(), obj.getLastName(), obj.getdOB(), obj.getEmail(),
+                obj.getAddress(), obj.getTelephone());
+        setDateEnrolled(obj.getDateEnrolled());
+        setProgrammeCode(obj.getProgrammeCode());
+        setEnrollmentStatus(obj.getEnrollmentStatus());
+        setEnrolledCourses(obj.getEnrolledCourses());
         setUserType(obj.getUserType());
         setPassword(obj.getLastName() + obj.getStudentID());
-        setDetails(obj.getDetails());
     }
 
 
@@ -42,28 +68,38 @@ public class Student extends User {
         this.studentID = studentID;
     }
 
-    public StudentDetail getDetails() {
-        return details;
+    public Date getDateEnrolled() {
+        return dateEnrolled;
     }
 
-    public void setDetails(StudentDetail details) {
-        this.details = details;
+    public void setDateEnrolled(Date dateEnrolled) {
+        this.dateEnrolled = dateEnrolled;
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "studentID='" + getStudentID() + '\'' +
-                ", details=" + getDetails() +
-                ", firstName='" + getFirstName() + '\'' +
-                ", lastName='" + getLastName() + '\'' +
-                ", dOB=" + getdOB() +
-                ", address=" + getAddress() +
-                ", telephone='" + getTelephone() + '\'' +
-                ", password='" + getPassword() + '\'' +
-                ", userType='" + getUserType() + '\'' +
-                '}';
+    public String getProgrammeCode() {
+        return programmeCode;
     }
+
+    public void setProgrammeCode(String programmeCode) {
+        this.programmeCode = programmeCode;
+    }
+
+    public String getEnrollmentStatus() {
+        return enrollmentStatus;
+    }
+
+    public void setEnrollmentStatus(String enrollmentStatus) {
+        this.enrollmentStatus = enrollmentStatus;
+    }
+
+    public List<Course> getEnrolledCourses() {
+        return enrolledCourses;
+    }
+
+    public void setEnrolledCourses(List<Course> enrolledCourses) {
+        this.enrolledCourses = enrolledCourses;
+    }
+
 
     public void enrollForSemester() {
     }
@@ -79,5 +115,6 @@ public class Student extends User {
 
     public void generateReport() {
     }
+
 
 }

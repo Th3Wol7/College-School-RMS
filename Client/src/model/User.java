@@ -1,14 +1,39 @@
 package model;
 
-public class User {
+import javax.persistence.*;
+import java.io.Serializable;
 
+@Entity
+@Table(name = "Users")
+@SecondaryTable(name = "Telephone", pkJoinColumns = @PrimaryKeyJoinColumn(name = "ID"))
+public class User implements Serializable{
+	@Id
+	@Column(name = "ID")
 	String userID;
+	@Column(name = "firstName")
 	protected String firstName;
+
+	@Column(name = "lastName")
 	protected String lastName;
+
+	@Column(name = "dob")
+	@Temporal(TemporalType.DATE)
 	protected Date dOB;
+
+	@Column(name = "email")
+	private String email;
+
+	@ManyToOne
+	@JoinColumn(name = "addressID")
 	protected Address address;
+
+	@Column(table = "Telephone", name = "phone")
 	protected String telephone;
+
+	@Column(name = "password")
 	protected String password;
+
+	@Column(name = "userType")
 	protected String userType;
 	
 	//Default Constructor
@@ -16,6 +41,7 @@ public class User {
 		setUserID("C!AN");
 		setFirstName("N/A");
 		setLastName("N/A");
+		setEmail("N/A");
 		setdOB(new Date());
 		setAddress(new Address());
 		setTelephone("N/A");
@@ -23,37 +49,26 @@ public class User {
 	}
 	
 	//Primary Constructor
-	 User(String userID, String firstName, String lastName, int day, int month, int year,
-			 String streetNum, String streetName, String State, String Country,
-			 String telephone) {
-		setUserID(userID);
-		setFirstName(firstName);
-		setLastName(lastName);
-		setdOB(new Date(day, month, year));
-		setAddress(new Address(streetNum, streetName, State, Country));
-		setTelephone(telephone);
-	}
-	 
-	 
-	//Second Primary Constructor
-		 User(String userID, String firstName, String lastName, Date dOB, Address address, String telephone) {
+	 User(String userID, String firstName, String lastName, Date dOB, String email, Address address, String telephone) {
 			setUserID(userID);
 			setFirstName(firstName);
 			setLastName(lastName);
 			setdOB(dOB);
+			setEmail(email);
 			setAddress(address);
 			setTelephone(telephone);
 		}
 	 
 	 //Copy Constructor
 	 User(User obj) {
-		    setUserID(obj.userID);
-			setFirstName(obj.firstName);
-			setLastName(obj.lastName);
-			setdOB(obj.dOB);
-			setAddress(obj.address);
-			setTelephone(obj.telephone);
-			setPassword(obj.password);
+		    setUserID(obj.getUserID());
+			setFirstName(obj.getFirstName());
+			setLastName(obj.getLastName());
+			setdOB(obj.getdOB());
+			setEmail(obj.getEmail());
+			setAddress(obj.getAddress());
+			setTelephone(obj.getTelephone());
+			setPassword(obj.getPassword());
 		}
 
 	public String getUserID() {
@@ -85,6 +100,14 @@ public class User {
 
 	public void setdOB(Date dOB) {
 		this.dOB = dOB;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Address getAddress() {

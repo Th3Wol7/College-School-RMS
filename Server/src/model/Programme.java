@@ -1,13 +1,34 @@
 package model;
 
-public class Programme{
+import javax.persistence.*;
+import java.io.Serializable;
+
+@Entity(name = "programme")
+@Table(name = "Programmes")
+public class Programme implements Serializable{
+	@Id
+	@Column(name = "programmeCode")
 	private String programmeCode;
+
+	@Column(name = "programmeName")
 	private String programmeName;
+
+	@Column(name = "accreditation")
 	private String accreditation;// BSC, Diploma, Masters etc
+
+	@Column(name = "numOfCourses")
 	private int numOfCourses;
+
+	@Column(name = "yearsOfStudy")
 	private String length;
+
+	@Column(name = "description")
 	private String Description;
+
+	@Column(name = "cost")
 	private double cost;
+
+	@Column(name = "totalCredits")
 	private int minimumCredits = -1;
 
 	//Default Constructor
@@ -20,8 +41,8 @@ public class Programme{
 		setMinimumCredits(-1);
 		setLength("N/A");
 		setCost(0.0);
-	}
-
+	}		
+	
 	//Primary Constructor
 	public Programme(String programmeCode, String programmeName, String accreditation, String description,
 					 int numOfCourses, int totalCredits, String length, double cost) {
@@ -34,7 +55,7 @@ public class Programme{
 		setLength(length);
 		setCost(cost);
 	}
-
+	
 	//Copy Constructor
 	public Programme(Programme obj) {
 		setProgrammeCode(obj.getProgrammeCode());

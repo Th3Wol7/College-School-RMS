@@ -1,71 +1,93 @@
 package model;
 
-public class Address {
-	private String streetNum;
-	private String streetName;
-	private String state;
-	private String country;
+import javax.persistence.*;
+import java.io.Serializable;
 
-	// Default Constructor
-	public Address() {
-		setStreetNum("N/A");
-		setStreetName("N/A");
-		setState("N/A");
-		setCountry("N/A");
-	}
+@Entity(name = "address")
+@Table(name = "address")
+public class Address implements Serializable {
+    @Column(name = "streetAddress")
+    private String streetAddress;
 
-	//Primary Constructor
-	public Address(String streetNum, String streetName, String state, String country) {
-		setStreetNum(streetNum);
-		setStreetName(streetName);
-		setState(state);
-		setCountry(country);
-	}
+    @Column(name = "state")
+    private String state;
 
-	public Address(Address obj) {
-		setStreetNum(obj.streetNum);
-		setStreetName(obj.streetName);
-		setState(obj.state);
-		setCountry(obj.country);
-	}
+    @Column(name = "zipCode")
+    private String zipCode;
 
-	//Getters and Setters
-	public String getStreetNum() {
-		return streetNum;
-	}
+    @Column(name = "country")
+    private String country;
 
-	public void setStreetNum(String streetNum) {
-		this.streetNum = streetNum;
-	}
+    // Default Constructor
+    public Address() {
+        setStreetAddress("N/A");
+        setState("N/A");
+        setZipCode("");
+        setCountry("N/A");
+    }
 
-	public String getStreetName() {
-		return streetName;
-	}
+    //Primary Constructor
+    public Address(String streetAddress, String state, String zipCode, String country) {
+        setStreetAddress(streetAddress);
+        setState(state);
+        setZipCode(zipCode);
+        setCountry(country);
+    }
 
-	public void setStreetName(String streetName) {
-		this.streetName = streetName;
-	}
+    public Address(Address obj) {
+        setStreetAddress(obj.streetAddress);
+        setState(obj.state);
+        setZipCode(obj.zipCode);
+        setCountry(obj.country);
+    }
 
-	public String getState() {
-		return state;
-	}
+    //Getters and Setters
 
-	public void setState(String state) {
-		this.state = state;
-	}
 
-	public String getCountry() {
-		return country;
-	}
+    public String getStreetAddress() {
+        return streetAddress;
+    }
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
+    }
 
-	@Override
-	public String toString() {
-		return "Address [getStreetNum()=" + getStreetNum() + ", getStreetName()=" + getStreetName() + ", getState()="
-				+ getState() + ", getCountry()=" + getCountry() + "]";
-	}
+    public String getState() {
+        return state;
+    }
 
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void displayAddress() {
+        System.out.println("Street Address: " + getStreetAddress() + "\t State:" +
+                getState() + "\t ZipCode: " + getZipCode() + "\t Country: " + getCountry());
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "streetAddress='" + streetAddress + '\'' +
+                ", state='" + state + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", country='" + country + '\'' +
+                '}';
+    }
 }

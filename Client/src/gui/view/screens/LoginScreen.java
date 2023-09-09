@@ -1,7 +1,6 @@
 package gui.view.screens;
 
 import gui.utils.FrameUtility;
-import model.User;
 
 /*
 image credit - paper clips PNG Designed By 渣渣 from

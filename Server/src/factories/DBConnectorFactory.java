@@ -11,9 +11,8 @@ import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-//NTS: CREATE METHODS INCOMPLETE - Create table queries
-public class DBConnectorFactory {
 
+public class DBConnectorFactory {
     private static final Logger logger = LogManager.getLogger(DBConnectorFactory.class);
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm:ss");
     private static final String URL = "jdbc:mysql://localhost:3306/";
@@ -36,13 +35,12 @@ public class DBConnectorFactory {
                     //Auto creating database and it's tables once a successful connection has been established
                     createAddressTable();
                     createCourseTable();
-                    createDateTable();
+                    createEnrollTable();
                     createProgrammeTable();
                     createStaffTable();
                     createStudentTable();
                     createTelephoneTable();
                     createUserTable();
-                    createEnrollTable();
                 }
             } catch (SQLException e) {
                 System.err.println("Connection Failed: " + e.getMessage());
@@ -77,9 +75,9 @@ public class DBConnectorFactory {
 
     private static void createUserTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE users(ID varchar(10) NOT NULL, firstName varchar(25)," +
-                    "lastName varchar(25), dob date, password varchar(25)" +
-                    ", userType varchar(15), PRIMARY KEY(ID))";
+            String query = "CREATE TABLE Users(ID varchar(10) NOT NULL, firstName varchar(25)," +
+                    "lastName varchar(25), dob date, email varchar(30) UNIQUE, addressID varchar(10), password varchar(25)" +
+                    ", userType varchar(15), PRIMARY KEY(ID), FOREIGN KEY(addressID) REFERENCES Address(ID))";
             if (stmt.executeUpdate(query) == 0) {
                 logger.info("User table successfully created.");
             }
@@ -93,8 +91,8 @@ public class DBConnectorFactory {
 
     private static void createTelephoneTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE telephone(ID varchar(10) NOT NULL, telephone varchar(20), " +
-                    "PRIMARY KEY(ID))";
+            String query = "CREATE TABLE Telephone(ID varchar(10) NOT NULL, telephone varchar(20), " +
+                    "PRIMARY KEY(ID, telephone))";
 
             if (stmt.executeUpdate(query) == 0) {
                 logger.info("Telephone table successfully created.");
@@ -109,10 +107,11 @@ public class DBConnectorFactory {
 
     private static void createStudentTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE student(ID varchar(10) NOT NULL, firstName varchar(25)," +
-                    "lastName varchar(25), dob date, email varchar(30) UNIQUE, programmeCode varchar(15), " +
-                    "enrollmentStatus varchar(15), PRIMARY KEY(ID), " +
-                    "FOREIGN KEY(programmeCode) REFERENCES programmes(programmeCode))";
+            String query = "CREATE TABLE Student(ID varchar(10) NOT NULL, firstName varchar(25)," +
+                    "lastName varchar(25), dob date, programmeCode varchar(15), " +
+                    "enrollmentStatus varchar(15), dateEnrolled date, PRIMARY KEY(ID), " +
+                    "FOREIGN KEY(programmeCode) REFERENCES Programmes(programmeCode) + " +
+                    "FOREIGN KEY(ID) REFERENCES Users(ID))";
 
             if (stmt.executeUpdate(query) == 0) {
                 logger.info("Student table successfully created.");
@@ -127,9 +126,11 @@ public class DBConnectorFactory {
 
     private static void createStaffTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE staff(ID varchar(10) NOT NULL, firstName varchar(25), " +
-                    "lastName varchar(25), dob date, email varchar(30) UNIQUE, faculty varchar(30)," +
-                    " department varchar(30), dateEmployed date)";
+            String query = "CREATE TABLE Staff(ID varchar(10) NOT NULL, firstName varchar(25), " +
+                    "lastName varchar(25), dob date, email varchar(30) UNIQUE, faculty varchar(30), " +
+                    "department varchar(30), occupation varchar(20), dateEmployed date, PRIMARY KEY (ID)" +
+                    "FOREIGN KEY(department) REFERENCES Department(departmentCode)" +
+                    "FOREIGN KEY(ID) REFERENCES Users(ID))";
 
             if (stmt.executeUpdate(query) == 0) {
                 logger.info("Staff table successfully created.");
@@ -144,9 +145,9 @@ public class DBConnectorFactory {
 
     private static void createProgrammeTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE programmes(programmeCode varchar(10) NOT NULL, programmeName varchar(35), " +
+            String query = "CREATE TABLE Programmes(programmeCode varchar(10) NOT NULL, programmeName varchar(35), " +
                     "accreditation varchar(25), numOfCourses int, yearsOfStudy int, " +
-                    "Description varchar(100), cost decimal(10,2), totalCredits int, PRIMARY KEY(programmeCode))";
+                    "description varchar(100), cost decimal(10,2), totalCredits int, PRIMARY KEY(programmeCode))";
 
             if (stmt.executeUpdate(query) == 0) {
                 logger.info("Programme table successfully created.");
@@ -159,24 +160,9 @@ public class DBConnectorFactory {
         }
     }
 
-    private static void createDateTable() {
-        try (Statement stmt = dbConn.createStatement()) {
-            String query = "";
-
-            if (stmt.executeUpdate(query) == 0) {
-                logger.info("Date table successfully created.");
-            }
-        } catch (SQLException e) {
-            logger.warn("SQLException: " + e.getMessage());
-        } catch (Exception e) {
-            logger.error("Unexpected error: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
     private static void createCourseTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE courses(courseCode varchar(10), courseName varchar(35)," +
+            String query = "CREATE TABLE Course(courseCode varchar(10), courseName varchar(35), " +
                     "description varchar(80), credits int, prerequisite varchar(15), " +
                     "PRIMARY KEY (courseCode), FOREIGN KEY(prequisite) REFERENCES courses(courseCode))";
 
@@ -193,7 +179,7 @@ public class DBConnectorFactory {
 
     private static void createEnrollTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE enrolled(studentID varchar(10) NOT NULL, courseCode varchar(10) NOT NULL, " +
+            String query = "CREATE TABLE Enrolled(studentID varchar(10) NOT NULL, courseCode varchar(10) NOT NULL, " +
                     "programmeCode varchar(10) NOT NULL, PRIMARY KEY (studentID, courseCode), " +
                     "FOREIGN KEY studentID REFERENCES students(studentID), FOREIGN KEY courseCode " +
                     "REFERENCES courses(CourseCode), FOREIGN KEY programmeCode REFERENCES programmes(programmeCode))";
@@ -211,8 +197,8 @@ public class DBConnectorFactory {
 
     private static void createAddressTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE addresses(ID varchar(10) NOT NULL, streetAddress varchar(80), " +
-                    "zipCode varchar(10), country(30), PRIMARY KEY(ID))";
+            String query = "CREATE TABLE Address(ID varchar(10) NOT NULL, streetAddress varchar(45)," +
+                    "states varchar(25), zipCode varchar(10), country varchar(30), PRIMARY KEY(ID))";
 
             if (stmt.executeUpdate(query) == 0) {
                 logger.info("Address table successfully created.");
