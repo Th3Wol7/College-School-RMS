@@ -6,6 +6,7 @@ import model.*;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import gui.*;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -17,6 +18,8 @@ import java.net.SocketException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import static factories.DBConnectorFactory.logger;
 
 
 /*The purpose of this class is to receive, process and respond to requests from the server*/
@@ -66,9 +69,9 @@ public class Server{
     }
 
     private void waitForRequests() {
-        mainScreen = new MainScreen(serverSocket);
-        splashScreen.dispose();
-        mainScreen.setVisible(true);
+        //ServerScreen = new ServerScreen(serverSocket);
+       // StartupScreen.dispose();
+       // ServerScreen.setVisible(true);
         logger.info("Sever is running");
         try {
             // running infinite loop for getting client request
@@ -86,13 +89,13 @@ public class Server{
                 logger.info(clientConnected);
 
                 // Update text area
-                mainScreen.setTextArea(clientConnected);
+                //ServerScreen.setTextArea(clientConnected);
 
                 // create a new thread object
-                ClientHandler clientHandler = new ClientHandler();
+               // ClientHandler clientHandler = new ClientHandler();
 
                 // This thread will handle the client separately
-                new Thread(clientHandler).start();
+               // new Thread(clientHandler).start();
             }
         } catch (SocketException e) {
             logger.warn("SocketException: " + e.getMessage());

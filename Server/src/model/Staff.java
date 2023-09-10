@@ -47,7 +47,7 @@ public class Staff extends User {
     //Primary Constructor
     Staff(String firstName, String lastName, Date dob, String email, Address address,
           String telephone, String faculty, String department, Date dateEmployed, String occupation, String password) {
-        super(staffID, firstName, lastName, dob, email, address, telephone);
+        //super(staffID, firstName, lastName, dob, email, address, telephone);
         setFaculty(faculty);
         setDepartment(department);
         setDateEmployed(dateEmployed);

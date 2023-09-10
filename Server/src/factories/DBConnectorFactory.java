@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 
 
 public class DBConnectorFactory {
-    private static final Logger logger = LogManager.getLogger(DBConnectorFactory.class);
+    public static final Logger logger = LogManager.getLogger(DBConnectorFactory.class);
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm:ss");
     private static final String URL = "jdbc:mysql://localhost:3306/";
     private static final String USER = "root";
