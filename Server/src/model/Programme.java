@@ -31,6 +31,8 @@ public class Programme implements Serializable{
 	@Column(name = "totalCredits")
 	private int minimumCredits = -1;
 
+	private String director; //programme director identified by user ID
+
 	//Default Constructor
 	public Programme() {
 		setProgrammeCode("N/A");
@@ -41,11 +43,12 @@ public class Programme implements Serializable{
 		setMinimumCredits(-1);
 		setLength("N/A");
 		setCost(0.0);
+		setDirector("Admin");
 	}		
 	
 	//Primary Constructor
 	public Programme(String programmeCode, String programmeName, String accreditation, String description,
-					 int numOfCourses, int totalCredits, String length, double cost) {
+					 String director, int numOfCourses, int totalCredits, String length, double cost) {
 		setProgrammeCode(programmeCode);
 		setProgrammeName(programmeName);
 		setAccreditation(accreditation);
@@ -54,6 +57,7 @@ public class Programme implements Serializable{
 		setMinimumCredits(totalCredits);
 		setLength(length);
 		setCost(cost);
+		setDirector(director);
 	}
 	
 	//Copy Constructor
@@ -66,6 +70,7 @@ public class Programme implements Serializable{
 		setMinimumCredits(obj.getMinimumCredits());
 		setLength(obj.getLength());
 		setCost(obj.getCost());
+		setDirector(obj.getDirector());
 	}
 
 
@@ -133,17 +138,26 @@ public class Programme implements Serializable{
 		this.minimumCredits = minimumCredits;
 	}
 
+	public String getDirector() {
+		return director;
+	}
+
+	public void setDirector(String director) {
+		this.director = director;
+	}
+
 	@Override
 	public String toString() {
 		return "Programme{" +
-				"programmeCode='" + getProgrammeCode() + '\'' +
-				", programmeName='" + getProgrammeName() + '\'' +
-				", Accreditation='" + getAccreditation() + '\'' +
-				", numOfCourses=" + getNumOfCourses() +
-				", length='" + getLength() + '\'' +
-				", Description='" + getDescription() + '\'' +
-				", cost=" + getCost() +
-				", minimumCredits=" + getMinimumCredits() +
+				"programmeCode='" + programmeCode + '\'' +
+				", programmeName='" + programmeName + '\'' +
+				", accreditation='" + accreditation + '\'' +
+				", numOfCourses=" + numOfCourses +
+				", length='" + length + '\'' +
+				", Description='" + Description + '\'' +
+				", cost=" + cost +
+				", minimumCredits=" + minimumCredits +
+				", director='" + director + '\'' +
 				'}';
 	}
 }

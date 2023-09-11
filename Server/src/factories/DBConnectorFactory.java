@@ -73,6 +73,23 @@ public class DBConnectorFactory {
         return dbConn;
     }
 
+    //Table creation methods
+    private static void createAddressTable() {
+        try (Statement stmt = dbConn.createStatement()) {
+            String query = "CREATE TABLE Address(ID varchar(10) NOT NULL, streetAddress varchar(45)," +
+                    "states varchar(25), zipCode varchar(10), country varchar(30), PRIMARY KEY(ID))";
+
+            if (stmt.executeUpdate(query) == 0) {
+                logger.info("Address table successfully created.");
+            }
+        } catch (SQLException e) {
+            logger.warn("SQLException: " + e.getMessage());
+        } catch (Exception e) {
+            logger.error("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     private static void createUserTable() {
         try (Statement stmt = dbConn.createStatement()) {
             String query = "CREATE TABLE Users(ID varchar(10) NOT NULL, firstName varchar(25)," +
@@ -92,10 +109,62 @@ public class DBConnectorFactory {
     private static void createTelephoneTable() {
         try (Statement stmt = dbConn.createStatement()) {
             String query = "CREATE TABLE Telephone(ID varchar(10) NOT NULL, telephone varchar(20), " +
-                    "PRIMARY KEY(ID, telephone))";
+                    "PRIMARY KEY(ID, telephone), FOREIGN KEY(ID) REFERENCES Users(ID))";
 
             if (stmt.executeUpdate(query) == 0) {
                 logger.info("Telephone table successfully created.");
+            }
+        } catch (SQLException e) {
+            logger.warn("SQLException: " + e.getMessage());
+        } catch (Exception e) {
+            logger.error("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private static void createProgrammeTable() {
+        try (Statement stmt = dbConn.createStatement()) {
+            String query = "CREATE TABLE Programmes(programmeCode varchar(10) NOT NULL, programmeName varchar(35), " +
+                    "accreditation varchar(25), numOfCourses int, yearsOfStudy int, director varchar(10) " +
+                    "description varchar(100), cost decimal(10,2), totalCredits int, PRIMARY KEY(programmeCode))";
+
+            if (stmt.executeUpdate(query) == 0) {
+                logger.info("Programme table successfully created.");
+            }
+        } catch (SQLException e) {
+            logger.warn("SQLException: " + e.getMessage());
+        } catch (Exception e) {
+            logger.error("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private static void createCourseTable() {
+        try (Statement stmt = dbConn.createStatement()) {
+            String query = "CREATE TABLE Course(courseCode varchar(10), courseName varchar(35), " +
+                    "description varchar(80), credits int, prerequisite varchar(15), " +
+                    "PRIMARY KEY (courseCode), FOREIGN KEY(prequisite) REFERENCES Course(courseCode))";
+
+            if (stmt.executeUpdate(query) == 0) {
+                logger.info("Course table successfully created.");
+            }
+        } catch (SQLException e) {
+            logger.warn("SQLException: " + e.getMessage());
+        } catch (Exception e) {
+            logger.error("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private static void createEnrollTable() {
+        try (Statement stmt = dbConn.createStatement()) {
+            String query = "CREATE TABLE Enrolled(studentID varchar(10) NOT NULL, courseCode varchar(10) NOT NULL, " +
+                    "programmeCode varchar(10) NOT NULL, PRIMARY KEY (studentID, courseCode), " +
+                    "FOREIGN KEY studentID REFERENCES Students(ID), FOREIGN KEY courseCode " +
+                    "REFERENCES Courses(CourseCode), FOREIGN KEY programmeCode REFERENCES Programmes(programmeCode))";
+
+            if (stmt.executeUpdate(query) == 0) {
+                logger.info("Enrol table successfully created.");
             }
         } catch (SQLException e) {
             logger.warn("SQLException: " + e.getMessage());
@@ -111,7 +180,8 @@ public class DBConnectorFactory {
                     "lastName varchar(25), dob date, programmeCode varchar(15), " +
                     "enrollmentStatus varchar(15), dateEnrolled date, PRIMARY KEY(ID), " +
                     "FOREIGN KEY(programmeCode) REFERENCES Programmes(programmeCode) + " +
-                    "FOREIGN KEY(ID) REFERENCES Users(ID))";
+                    "FOREIGN KEY(ID) REFERENCES Users(ID)), FOREIGN KEY(firstName) REFERENCES Users(firstName))" +
+                    "FOREIGN KEY(lastName) REFERENCES Users(lastName))";
 
             if (stmt.executeUpdate(query) == 0) {
                 logger.info("Student table successfully created.");
@@ -130,7 +200,8 @@ public class DBConnectorFactory {
                     "lastName varchar(25), dob date, email varchar(30) UNIQUE, faculty varchar(30), " +
                     "department varchar(30), occupation varchar(20), dateEmployed date, PRIMARY KEY (ID)" +
                     "FOREIGN KEY(department) REFERENCES Department(departmentCode)" +
-                    "FOREIGN KEY(ID) REFERENCES Users(ID))";
+                    "FOREIGN KEY(ID) REFERENCES Users(ID)), FOREIGN KEY(firstName) REFERENCES Users(firstName))" +
+                    "FOREIGN KEY(lastName) REFERENCES Users(lastName))";
 
             if (stmt.executeUpdate(query) == 0) {
                 logger.info("Staff table successfully created.");
@@ -143,73 +214,6 @@ public class DBConnectorFactory {
         }
     }
 
-    private static void createProgrammeTable() {
-        try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE Programmes(programmeCode varchar(10) NOT NULL, programmeName varchar(35), " +
-                    "accreditation varchar(25), numOfCourses int, yearsOfStudy int, " +
-                    "description varchar(100), cost decimal(10,2), totalCredits int, PRIMARY KEY(programmeCode))";
-
-            if (stmt.executeUpdate(query) == 0) {
-                logger.info("Programme table successfully created.");
-            }
-        } catch (SQLException e) {
-            logger.warn("SQLException: " + e.getMessage());
-        } catch (Exception e) {
-            logger.error("Unexpected error: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    private static void createCourseTable() {
-        try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE Course(courseCode varchar(10), courseName varchar(35), " +
-                    "description varchar(80), credits int, prerequisite varchar(15), " +
-                    "PRIMARY KEY (courseCode), FOREIGN KEY(prequisite) REFERENCES courses(courseCode))";
-
-            if (stmt.executeUpdate(query) == 0) {
-                logger.info("Course table successfully created.");
-            }
-        } catch (SQLException e) {
-            logger.warn("SQLException: " + e.getMessage());
-        } catch (Exception e) {
-            logger.error("Unexpected error: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    private static void createEnrollTable() {
-        try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE Enrolled(studentID varchar(10) NOT NULL, courseCode varchar(10) NOT NULL, " +
-                    "programmeCode varchar(10) NOT NULL, PRIMARY KEY (studentID, courseCode), " +
-                    "FOREIGN KEY studentID REFERENCES students(studentID), FOREIGN KEY courseCode " +
-                    "REFERENCES courses(CourseCode), FOREIGN KEY programmeCode REFERENCES programmes(programmeCode))";
-
-            if (stmt.executeUpdate(query) == 0) {
-                logger.info("Enrol table successfully created.");
-            }
-        } catch (SQLException e) {
-            logger.warn("SQLException: " + e.getMessage());
-        } catch (Exception e) {
-            logger.error("Unexpected error: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    private static void createAddressTable() {
-        try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE Address(ID varchar(10) NOT NULL, streetAddress varchar(45)," +
-                    "states varchar(25), zipCode varchar(10), country varchar(30), PRIMARY KEY(ID))";
-
-            if (stmt.executeUpdate(query) == 0) {
-                logger.info("Address table successfully created.");
-            }
-        } catch (SQLException e) {
-            logger.warn("SQLException: " + e.getMessage());
-        } catch (Exception e) {
-            logger.error("Unexpected error: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
 
     private static void createHAYDatabase() {
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
