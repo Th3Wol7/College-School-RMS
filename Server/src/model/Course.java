@@ -20,8 +20,7 @@ public class Course implements Serializable {
     @Column(name = "credits")
     private int credits;
 
-    @OneToOne
-    @JoinColumn(name = "prerequisite")
+    @Column(name = "prerequisite")
     private String prerequisite;
 
     //Default Constructor

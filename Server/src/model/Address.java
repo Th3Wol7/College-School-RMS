@@ -6,6 +6,9 @@ import java.io.Serializable;
 @Entity(name = "address")
 @Table(name = "address")
 public class Address implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long addressID;
     @Column(name = "streetAddress")
     private String streetAddress;
 

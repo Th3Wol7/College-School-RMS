@@ -20,13 +20,13 @@ import java.util.Scanner;
 @Table(name = "Staff")
 public class Staff extends User {
 	@Id
-	@JoinColumn(name = "ID")
+	@Column(name = "ID")
     private String staffID;
 
 	@Column(name = "faculty")
     private String faculty;
 
-	@JoinColumn(name = "department")
+	@Column(name = "department")
     private String department;
     @Column(name = "dateEmployed")
 	private Date dateEmployed;
