@@ -3,8 +3,8 @@ package model;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity(name = "programme")
-@Table(name = "Programmes")
+@Entity(name = "Programme")
+@Table(name = "Programme")
 public class Programme implements Serializable{
 	@Id
 	@Column(name = "programmeCode")

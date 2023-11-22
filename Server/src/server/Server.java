@@ -1,17 +1,16 @@
 package server;
 
 import factories.DBConnectorFactory;
-import factories.SessionFactoryBuilder;s
+import factories.SessionFactoryBuilder;
+import gui.*;
 import model.*;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import gui.*;
 import org.hibernate.query.Query;
 
-import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -99,10 +98,10 @@ public class Server {
                 serverScreen.setTextArea(clientConnected);
 
                 // create a new thread object
-                //ClientHandler clientHandler = new ClientHandler();
+                ClientHandler clientHandler = new ClientHandler();
 
                 // This thread will handle the client separately
-                // new Thread(clientHandler).start();
+                new Thread(clientHandler).start();
             }
         } catch (SocketException e) {
             logger.warn("SocketException: " + e.getMessage());
@@ -118,9 +117,7 @@ public class Server {
         }
     }
 
-    /**
-     * Insert queries
-     **/
+    ///////////Insert Queries////////////////
     public void addUser(User user) throws IOException {
         Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
         Transaction transaction = session.beginTransaction();
@@ -360,10 +357,8 @@ public class Server {
         }
     }
 
+    //////////////////////Update queries///////////////////
 
-    /**
-     * Update queries
-     **/
     public void updateUser(User user) throws IOException {
         Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
         Transaction transaction = session.beginTransaction();
@@ -823,7 +818,191 @@ public class Server {
     }*/
 
 
+    /////////////////////////Select All Queries////////////
+    private List<User> getAllUsers() throws IOException {
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        List<User> userList = null;
+        try {
+            userList = (List<User>) session.createQuery("FROM User").getResultList();
+            transaction.commit();
+        } catch (HibernateException e) {
+            logger.error("HibernateException: " + e.getMessage());
+            transaction.rollback();
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (Exception e) {
+            transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } finally {
+            session.close();
+        }
+        return userList;
+    }
 
+    private List<Student> getAllStudents() throws IOException {
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        List<Student> studentList = null;
+        try {
+            studentList = (List<Student>) session.createQuery("FROM Student").getResultList();
+            transaction.commit();;
+            transaction.commit();
+        } catch (HibernateException e) {
+            logger.error("HibernateException: " + e.getMessage());
+            transaction.rollback();
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (Exception e) {
+            transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } finally {
+            session.close();
+        }
+        return studentList;
+    }
+
+    private List<StudentGPA> getAllStudentGPA() throws IOException {
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        List<StudentGPA> studentGPAList = null;
+        try {
+            studentGPAList = (List<StudentGPA>) session.createQuery("FROM StudentGPA").getResultList();
+            transaction.commit();
+        } catch (HibernateException e) {
+            logger.error("HibernateException: " + e.getMessage());
+            transaction.rollback();
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (Exception e) {
+            transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } finally {
+            session.close();
+        }
+        return studentGPAList;
+    }
+
+    private List<Staff> getAllStaff() throws IOException {
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        List<Staff> staffList = null;
+        try {
+            staffList = (List<Staff>) session.createQuery("FROM Staff").getResultList();
+            transaction.commit();
+        } catch (HibernateException e) {
+            logger.error("HibernateException: " + e.getMessage());
+            transaction.rollback();
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (Exception e) {
+            transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } finally {
+            session.close();
+        }
+        return staffList;
+    }
+
+    private List<Programme> getAllProgrammes() throws IOException {
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        List<Programme> programmeList = null;
+        try {
+            programmeList = (List<Programme>) session.createQuery("FROM Programme").getResultList();
+            transaction.commit();
+        } catch (HibernateException e) {
+            logger.error("HibernateException: " + e.getMessage());
+            transaction.rollback();
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (Exception e) {
+            transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } finally {
+            session.close();
+        }
+        return programmeList;
+    }
+
+    private List<Course> getAllCourses() throws IOException {
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        List<Course> courseList = null;
+        try {
+            courseList = (List<Course>) session.createQuery("FROM Course").getResultList();
+            transaction.commit();
+        } catch (HibernateException e) {
+            logger.error("HibernateException: " + e.getMessage());
+            transaction.rollback();
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (Exception e) {
+            transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } finally {
+            session.close();
+        }
+        return courseList;
+    }
+
+    private List<CourseGPA> getAllCourseGPA() throws IOException {
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        List<CourseGPA> courseGPAList = null;
+        try {
+            courseGPAList = (List<CourseGPA>) session.createQuery("FROM CourseGPA").getResultList();
+            transaction.commit();
+        } catch (HibernateException e) {
+            logger.error("HibernateException: " + e.getMessage());
+            transaction.rollback();
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (Exception e) {
+            transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } finally {
+            session.close();
+        }
+        return courseGPAList;
+    }
+
+    private List<Address> getAllAddress() throws IOException {
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        List<Address> addressList = null;
+        try {
+            addressList = (List<Address>) session.createQuery("FROM Address").getResultList();
+            transaction.commit();
+        } catch (HibernateException e) {
+            logger.error("HibernateException: " + e.getMessage());
+            transaction.rollback();
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (Exception e) {
+            transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } finally {
+            session.close();
+        }
+        return addressList;
+    }
 
     ///////////////////Remove Queries/////////////////////////
 
@@ -1051,8 +1230,219 @@ public class Server {
         }
     }
 
-}
 
+    class ClientHandler implements Runnable {
+        @Override
+        public void run() {
+            String action;
+            User user;
+            Student student;
+            Course course;
+            Staff staff;
+            StudentGPA studentGPA;
+            CourseGPA courseGPA;
+            Programme programme;
+            Address address;
+            configureStreams();
+            try {
+                action = (String) objIs.readObject();
+                logger.info("Requested action: " + action);
+                ServerScreen.setRequestsText(requestAmount++);
+                ServerScreen.setTextArea("\nRequested action: " + action);
+                ServerScreen.setTextArea("\nHandled on: " + Thread.currentThread().getName() + "\n\n");
+                if (action.equals("Add user")) {
+                    user = (User) objIs.readObject();
+                    addUser(user);
+                }
+                if (action.equals("Update user")) {
+                    user = (User) objIs.readObject();
+                    updateUser(user);
+                }
+                if (action.equals("View students")) {
+                    List<User> userList = getAllUsers();
+                    for (User users : userList) {
+                        objOs.writeObject(users);
+                    }
+                }
+                if (action.equals("Find user")) {
+                    String userID = (String) objIs.readObject();
+                    user = getUser(userID);
+                    objOs.writeObject(user);
+                }
+                if (action.equals("Remove user")) {
+                    String userID = (String) objIs.readObject();
+                    removeStudent(userID);
+                }
+                if (action.equals("Add Student")) {
+                    student = (Student) objIs.readObject();
+                    addStudent(student);
+                }
+                if (action.equals("Update student")) {
+                    student = (Student) objIs.readObject();
+                    updateStudent(student);
+                }
+                if (action.equals("View students")) {
+                    List<Student> studentList = getAllStudents();
+                    for (Student students : studentList) {
+                        objOs.writeObject(students);
+                    }
+                }
+                if (action.equals("Find student")) {
+                    String studentId = (String) objIs.readObject();
+                    student = getStudent(studentId);
+                    objOs.writeObject(student);
+                }
+                if (action.equals("Remove student")) {
+                    String studentId = (String) objIs.readObject();
+                    removeStudent(studentId);
+                }
+                if (action.equals("Add studentGPA")) {
+                    studentGPA = (StudentGPA) objIs.readObject();
+                    addStudentGPA(studentGPA);
+                }
+                if (action.equals("View studentGPAs")) {
+                    List<StudentGPA> StudentGPAList = getAllStudentGPA();
+                    for (StudentGPA sGPA : StudentGPAList) {
+                        objOs.writeObject(sGPA);
+                    }
+                }
+                if (action.equals("Find studentGPA")) {
+                    String studentID = (String) objIs.readObject();
+                    int year = (int) objIs.readObject();
+                    List<StudentGPA> studentGPAList = getStudentGPA(studentID, year);
+                    objOs.writeObject(studentGPAList);
+                }
+                if (action.equals("Remove studentGPA")) {
+                    Long studentGPANum = (Long) objIs.readObject();
+                    removeStudentGPA(studentGPANum);
+                }
+                if (action.equals("Add Staff")) {
+                    staff = (Staff) objIs.readObject();
+                    addStaff(staff);
+                }
+                if (action.equals("Update Staff")) {
+                    staff = (Staff) objIs.readObject();
+                    updateStaff(staff);
+                }
+                if (action.equals("View Staffs")) {
+                    List<Staff> StaffList = getAllStaff();
+                    for (Staff stf : StaffList) {
+                        objOs.writeObject(stf);
+                    }
+                }
+                if (action.equals("Find Staff")) {
+                    String StaffId = (String) objIs.readObject();
+                    staff = getStaff(StaffId);
+                    objOs.writeObject(staff);
+                }
+                if (action.equals("Remove Staff")) {
+                    String StaffId = (String) objIs.readObject();
+                    removeStaff(StaffId);
+                }
+                if (action.equals("Add Course")) {
+                    course = (Course) objIs.readObject();
+                    addCourse(course);
+                }
+                if (action.equals("Update Course")) {
+                    course = (Course) objIs.readObject();
+                    updateCourse(course);
+                }
+                if (action.equals("Find Course")) {
+                    String courseCode = (String) objIs.readObject();
+                    course = getCourse(courseCode);
+                    objOs.writeObject(course);
+                }
+                if (action.equals("Remove Course")) {
+                    String courseCode = (String) objIs.readObject();
+                    removeCourse(courseCode);
+                }
+                if (action.equals("View Courses")) {
+                    List<Course> CourseList = getAllCourses();
+                    for (Course crse : CourseList) {
+                        objOs.writeObject(crse);
+                    }
+                }
+                if (action.equals("Add CourseGPA")) {
+                    courseGPA = (CourseGPA) objIs.readObject();
+                    addCourseGPA(courseGPA);
+                }
+                if (action.equals("View CourseGPAs")) {
+                    List<CourseGPA> CourseGPAList = getAllCourseGPA();
+                    for (CourseGPA cGPA : CourseGPAList) {
+                        objOs.writeObject(cGPA);
+                    }
+                }
+                if (action.equals("Find CourseGPA")) {
+                    String studentID = (String) objIs.readObject();
+                    String courseCode = (String) objIs.readObject();
+                    List<CourseGPA> courseGPAList = getCourseGPA(studentID, courseCode);
+                    objOs.writeObject(courseGPAList);
+                }
+                if (action.equals("Remove CourseGPA")) {
+                    Long CourseGPANum = (Long) objIs.readObject();
+                    removeCourseGPA(CourseGPANum);
+                }
+                if (action.equals("Add Programme")) {
+                    programme = (Programme) objIs.readObject();
+                    addProgramme(programme);
+                }
+                if (action.equals("Update Programme")) {
+                    programme = (Programme) objIs.readObject();
+                    updateProgramme(programme);
+                }
+                if (action.equals("Find Programme")) {
+                    String programmeCode = (String) objIs.readObject();
+                    programme = getProgramme(programmeCode);
+                    objOs.writeObject(programme);
+                }
+                if (action.equals("Remove Programme")) {
+                    String programmeCode = (String) objIs.readObject();
+                    removeCourse(programmeCode);
+                }
+                if (action.equals("View Programme")) {
+                    List<Programme> ProgrammeList = getAllProgrammes();
+                    for (Programme program : ProgrammeList) {
+                        objOs.writeObject(program);
+                    }
+                }
+                if (action.equals("Add Address")) {
+                    address = (Address) objIs.readObject();
+                    addAddress(address);
+                }
+                if (action.equals("Update Address")) {
+                    address = (Address) objIs.readObject();
+                    updateAddress(address);
+                }
+                if (action.equals("Find Address")) {
+                    int addressID = (int) objIs.readObject();
+                    address = getAddress(addressID);
+                    objOs.writeObject(address);
+                }
+                if (action.equals("Remove Address")) {
+                    int addressID = (int) objIs.readObject();
+                    removeAddress(addressID);
+                }
+                if (action.equals("View Address")) {
+                    List<Address> AddressList = getAllAddress();
+                    for (Address adrs : AddressList) {
+                        objOs.writeObject(adrs);
+                    }
+                }
+            } catch (IOException e) {
+                logger.error("IOException: " + e.getMessage());
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                logger.error("ClassNotFoundException: " + e.getMessage());
+                e.printStackTrace();
+            } catch (ClassCastException e) {
+                logger.error("ClassCastException: " + e.getMessage());
+                e.printStackTrace();
+            } finally {
+                closeConnections();
+            }
+        }
+    }
+}
 
 /*
 import model.Student;

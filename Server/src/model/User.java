@@ -3,7 +3,7 @@ package model;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
+@Entity(name = "Users")
 @Table(name = "Users")
 @SecondaryTable(name = "Telephone", pkJoinColumns = @PrimaryKeyJoinColumn(name = "ID"))
 public class User implements Serializable{

@@ -10,7 +10,6 @@ import java.util.List;
 public class Student extends User implements Serializable {
     @Id
     @Column(name = "ID")
-    @OneToOne(mappedBy = "ID", cascade = CascadeType.ALL)
     private String studentID;
     @Column(name = "dateEnrolled")
     @Temporal(TemporalType.DATE)
@@ -23,7 +22,7 @@ public class Student extends User implements Serializable {
     @OneToMany(mappedBy = "courseCode")
     List<Course> enrolledCourses = new ArrayList<>();
 
-    @Column(name = "cumulativeGPA")
+    @Column(name = "cumulativeGPA")//NTS: Check if this is inserted where the student object is being called
     private double cumulativeGPA;
 
     //Primary Constructor

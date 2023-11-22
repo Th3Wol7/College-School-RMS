@@ -16,7 +16,7 @@ import java.util.Scanner;
  * @author Tyrien Gilpin
  * */
 
-@Entity(name = "staff")
+@Entity(name = "Staff")
 @Table(name = "Staff")
 public class Staff extends User {
 	@Id
@@ -35,7 +35,7 @@ public class Staff extends User {
     private String occupation;
 
     //Default Constructor
-    Staff() {
+    public Staff() {
         super();
         setStaffID("N/A");
         setFaculty("N/A");
@@ -45,7 +45,7 @@ public class Staff extends User {
     }
 
     //Primary Constructor
-    Staff(String firstName, String lastName, Date dob, String email, Address address,
+    public Staff(String firstName, String lastName, Date dob, String email, Address address,
           String telephone, String faculty, String department, Date dateEmployed, String occupation, String password) {
         //super(staffID, firstName, lastName, dob, email, address, telephone);
         setFaculty(faculty);
@@ -57,7 +57,7 @@ public class Staff extends User {
     }
 
     //Copy Constructor
-    Staff(Staff obj) {
+    public Staff(Staff obj) {
         super(obj.getStaffID(), obj.getFirstName(), obj.getLastName(), obj.getdOB(), obj.getEmail(), obj.getAddress(), obj.getTelephone());
         setFaculty(obj.getFaculty());
         setDepartment(obj.getDepartment());
@@ -66,6 +66,7 @@ public class Staff extends User {
         setUserType("Staff");
         setPassword(obj.getPassword());
     }
+
 
     //Getters and Setters
     public String getStaffID() {

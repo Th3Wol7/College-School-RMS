@@ -222,11 +222,11 @@ public class ServerScreen extends JFrame implements ActionListener {
         });
     }
 
-    public void setRequestsText(int requestAmount) {
+    public static void setRequestsText(int requestAmount) {
         requestsText.setText(String.valueOf(requestAmount));
     }
 
-    public void setTextArea(String text) {
+    public static void setTextArea(String text) {
         textArea.append(text);
     }
 

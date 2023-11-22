@@ -92,7 +92,7 @@ public class DBConnectorFactory {
 
     private static void createUserTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE Users(ID varchar(10) NOT NULL, firstName varchar(25)," +
+            String query = "CREATE TABLE User(ID varchar(10) NOT NULL, firstName varchar(25)," +
                     "lastName varchar(25), dob date, email varchar(30) UNIQUE, addressID varchar(10), password varchar(25)" +
                     ", userType varchar(15), PRIMARY KEY(ID), FOREIGN KEY(addressID) REFERENCES Address(ID))";
             if (stmt.executeUpdate(query) == 0) {
@@ -109,7 +109,7 @@ public class DBConnectorFactory {
     private static void createTelephoneTable() {
         try (Statement stmt = dbConn.createStatement()) {
             String query = "CREATE TABLE Telephone(ID varchar(10) NOT NULL, telephone varchar(20), " +
-                    "PRIMARY KEY(ID, telephone), FOREIGN KEY(ID) REFERENCES Users(ID))";
+                    "PRIMARY KEY(ID, telephone), FOREIGN KEY(ID) REFERENCES User(ID))";
 
             if (stmt.executeUpdate(query) == 0) {
                 logger.info("Telephone table successfully created.");
@@ -124,7 +124,7 @@ public class DBConnectorFactory {
 
     private static void createProgrammeTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE Programmes(programmeCode varchar(10) NOT NULL, programmeName varchar(35), " +
+            String query = "CREATE TABLE Programme(programmeCode varchar(10) NOT NULL, programmeName varchar(35), " +
                     "accreditation varchar(25), numOfCourses int, yearsOfStudy int, director varchar(10) " +
                     "description varchar(100), cost decimal(10,2), totalCredits int, PRIMARY KEY(programmeCode))";
 
@@ -161,7 +161,7 @@ public class DBConnectorFactory {
             String query = "CREATE TABLE Enrolled(studentID varchar(10) NOT NULL, courseCode varchar(10) NOT NULL, " +
                     "programmeCode varchar(10) NOT NULL, PRIMARY KEY (studentID, courseCode), " +
                     "FOREIGN KEY studentID REFERENCES Students(ID), FOREIGN KEY courseCode " +
-                    "REFERENCES Courses(CourseCode), FOREIGN KEY programmeCode REFERENCES Programmes(programmeCode))";
+                    "REFERENCES Course(CourseCode), FOREIGN KEY programmeCode REFERENCES Programme(programmeCode))";
 
             if (stmt.executeUpdate(query) == 0) {
                 logger.info("Enrol table successfully created.");
@@ -180,8 +180,8 @@ public class DBConnectorFactory {
                     "lastName varchar(25), dob date, programmeCode varchar(15), " +
                     "enrollmentStatus varchar(15), dateEnrolled date, PRIMARY KEY(ID), " +
                     "FOREIGN KEY(programmeCode) REFERENCES Programmes(programmeCode) + " +
-                    "FOREIGN KEY(ID) REFERENCES Users(ID)), FOREIGN KEY(firstName) REFERENCES Users(firstName))" +
-                    "FOREIGN KEY(lastName) REFERENCES Users(lastName))";
+                    "FOREIGN KEY(ID) REFERENCES Users(ID)), FOREIGN KEY(firstName) REFERENCES User(firstName))" +
+                    "FOREIGN KEY(lastName) REFERENCES User(lastName))";
 
             if (stmt.executeUpdate(query) == 0) {
                 logger.info("Student table successfully created.");
@@ -200,8 +200,8 @@ public class DBConnectorFactory {
                     "lastName varchar(25), dob date, email varchar(30) UNIQUE, faculty varchar(30), " +
                     "department varchar(30), occupation varchar(20), dateEmployed date, PRIMARY KEY (ID)" +
                     "FOREIGN KEY(department) REFERENCES Department(departmentCode)" +
-                    "FOREIGN KEY(ID) REFERENCES Users(ID)), FOREIGN KEY(firstName) REFERENCES Users(firstName))" +
-                    "FOREIGN KEY(lastName) REFERENCES Users(lastName))";
+                    "FOREIGN KEY(ID) REFERENCES User(ID)), FOREIGN KEY(firstName) REFERENCES User(firstName))" +
+                    "FOREIGN KEY(lastName) REFERENCES User(lastName))";
 
             if (stmt.executeUpdate(query) == 0) {
                 logger.info("Staff table successfully created.");

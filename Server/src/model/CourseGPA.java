@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity
+@Entity(name = "CourseGPA")
 @Table(name = "CourseGPA")
 public class CourseGPA implements Serializable{
     @Id

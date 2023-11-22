@@ -1,10 +1,9 @@
 package model;
 
-
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity(name = "course")
+@Entity(name = "Course")
 @Table(name = "Course")
 public class Course implements Serializable {
     @Id

@@ -3,8 +3,8 @@ package model;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity(name = "address")
-@Table(name = "address")
+@Entity(name = "Address")
+@Table(name = "Address")
 public class Address implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
