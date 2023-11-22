@@ -1,6 +1,5 @@
 package gui;
 
-
 import javax.swing.JWindow;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
@@ -10,9 +9,7 @@ import javax.swing.BoxLayout;
 import java.awt.*;
 import java.util.Objects;
 
-
 public class StartupScreen extends JWindow {
-
     private JProgressBar progressBar;
     private JPanel panel;
     private JLabel startupIcon;

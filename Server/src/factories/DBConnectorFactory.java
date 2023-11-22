@@ -1,7 +1,7 @@
 package factories;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -26,7 +26,7 @@ public class DBConnectorFactory {
         }
         if (dbConn == null) {
             try {
-                dbConn = DriverManager.getConnection(URL, USER, PASSWORD);
+                dbConn = DriverManager.getConnection(URL + "HaAy", USER, PASSWORD);
                 if (dbConn != null) {
                     JOptionPane.showMessageDialog(null, "Connected to local server", "Home & Away Connection Status",
                             JOptionPane.INFORMATION_MESSAGE);
@@ -49,7 +49,7 @@ public class DBConnectorFactory {
                 boolean retry;
                 int selection = JOptionPane.showConfirmDialog(
                         null,
-                        "Could not connect to database H&AY." +
+                        "Could not connect to database HaAy." +
                                 "\n" + e.getMessage() +
                                 "\nRetry?",
                         "Connection Failure",
@@ -221,8 +221,8 @@ public class DBConnectorFactory {
         ) {
             String query = "CREATE DATABASE IF NOT EXISTS H&AY";
             if (stmt.executeUpdate(query) == 0) {
-                logger.info("H&AY Database created");
-                System.out.println("H&AY Database created");
+                logger.info("HaAy Database created");
+                System.out.println("HaAy Database created");
             }
         } catch (SQLException e) {
             logger.warn("SQLException: " + e.getMessage());

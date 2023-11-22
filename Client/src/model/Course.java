@@ -1,10 +1,12 @@
 package model;
 
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
-@Entity(name = "course")
+@Entity(name = "Course")
 @Table(name = "Course")
 public class Course implements Serializable {
     @Id
@@ -20,8 +22,7 @@ public class Course implements Serializable {
     @Column(name = "credits")
     private int credits;
 
-    @OneToOne
-    @JoinColumn(name = "prerequisite")
+    @Column(name = "prerequisite")
     private String prerequisite;
 
     //Default Constructor

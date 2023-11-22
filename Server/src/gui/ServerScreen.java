@@ -34,9 +34,10 @@ public class ServerScreen extends JFrame implements ActionListener {
     private final ServerSocket serverSocket;
     private final Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/res/tray_icon.png"));
     private JPanel panel;
-    private JTextArea textArea;
+    private static JTextArea textArea;
     private JLabel statusLabel, requestsLabel;
-    private JLabel statusText, requestsText;
+    private JLabel statusText;
+    private static JLabel requestsText;
     private JButton stopButton, exitButton;
     private JScrollPane scrollPane;
     private MenuItem menuOpen, menuClose;

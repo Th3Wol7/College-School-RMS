@@ -1,6 +1,9 @@
 package model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -16,18 +19,17 @@ import java.util.Scanner;
  * @author Tyrien Gilpin
  * */
 
-//NTS REVISIT PRIMARY CONSTRUCTOR
-@Entity(name = "staff")
+@Entity(name = "Staff")
 @Table(name = "Staff")
 public class Staff extends User {
 	@Id
-	@JoinColumn(name = "ID")
+	@Column(name = "ID")
     private String staffID;
 
 	@Column(name = "faculty")
     private String faculty;
 
-	@JoinColumn(name = "department")
+	@Column(name = "department")
     private String department;
     @Column(name = "dateEmployed")
 	private Date dateEmployed;
@@ -36,7 +38,7 @@ public class Staff extends User {
     private String occupation;
 
     //Default Constructor
-    Staff() {
+    public Staff() {
         super();
         setStaffID("N/A");
         setFaculty("N/A");
@@ -46,7 +48,7 @@ public class Staff extends User {
     }
 
     //Primary Constructor
-    Staff(String firstName, String lastName, Date dob, String email, Address address,
+    public Staff(String firstName, String lastName, Date dob, String email, Address address,
           String telephone, String faculty, String department, Date dateEmployed, String occupation, String password) {
         //super(staffID, firstName, lastName, dob, email, address, telephone);
         setFaculty(faculty);
@@ -58,7 +60,7 @@ public class Staff extends User {
     }
 
     //Copy Constructor
-    Staff(Staff obj) {
+    public Staff(Staff obj) {
         super(obj.getStaffID(), obj.getFirstName(), obj.getLastName(), obj.getdOB(), obj.getEmail(), obj.getAddress(), obj.getTelephone());
         setFaculty(obj.getFaculty());
         setDepartment(obj.getDepartment());
@@ -67,6 +69,7 @@ public class Staff extends User {
         setUserType("Staff");
         setPassword(obj.getPassword());
     }
+
 
     //Getters and Setters
     public String getStaffID() {

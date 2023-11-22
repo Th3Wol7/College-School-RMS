@@ -9,19 +9,21 @@ import java.util.List;
 @Table(name = "Student")
 public class Student extends User implements Serializable {
     @Id
-    @JoinColumn(name = "ID")
-    @OneToOne(mappedBy = "ID", cascade = CascadeType.ALL)
+    @Column(name = "ID")
     private String studentID;
     @Column(name = "dateEnrolled")
     @Temporal(TemporalType.DATE)
     private Date dateEnrolled;
-    @ManyToOne
-    @JoinColumn(name = "programmeCode")
+
+    @Column(name = "programmeCode")
     private String programmeCode;
     @Column(name = "enrollmentStatus")
     private String enrollmentStatus;
     @OneToMany(mappedBy = "courseCode")
     List<Course> enrolledCourses = new ArrayList<>();
+
+    @Column(name = "cumulativeGPA")//NTS: Check if this is inserted where the student object is being called
+    private double cumulativeGPA;
 
     //Primary Constructor
     public Student() {
@@ -32,16 +34,19 @@ public class Student extends User implements Serializable {
         setProgrammeCode("N/A");
         setEnrollmentStatus("0");
         setEnrolledCourses(new ArrayList<>());
+        setCumulativeGPA(0.00);
+
     }
 
     //Primary Constructor
     Student(String studentID, String firstName, String lastName, Date dob, Address address, String telephone,
-            Date enrollDate, String programmeCode, String status, String email, List<Course> enrolledCourses) {
+            Date enrollDate, String programmeCode, String status, String email, List<Course> enrolledCourses, double gpa) {
         super(studentID, firstName, lastName, dob, email, address, telephone);
         setDateEnrolled(enrollDate);
         setProgrammeCode(programmeCode);
         setEnrollmentStatus(status);
         setEnrolledCourses(enrolledCourses);
+        setCumulativeGPA(gpa);
         setUserType("Student");
         setPassword(lastName + studentID);
     }
@@ -54,6 +59,7 @@ public class Student extends User implements Serializable {
         setProgrammeCode(obj.getProgrammeCode());
         setEnrollmentStatus(obj.getEnrollmentStatus());
         setEnrolledCourses(obj.getEnrolledCourses());
+        setCumulativeGPA(obj.getCumulativeGPA());
         setUserType(obj.getUserType());
         setPassword(obj.getLastName() + obj.getStudentID());
     }
@@ -100,6 +106,13 @@ public class Student extends User implements Serializable {
         this.enrolledCourses = enrolledCourses;
     }
 
+    public double getCumulativeGPA() {
+        return cumulativeGPA;
+    }
+
+    public void setCumulativeGPA(double cumulativeGPA) {
+        this.cumulativeGPA = cumulativeGPA;
+    }
 
     public void enrollForSemester() {
     }
@@ -116,5 +129,21 @@ public class Student extends User implements Serializable {
     public void generateReport() {
     }
 
-
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentID='" + studentID + '\'' +
+                ", dateEnrolled=" + dateEnrolled +
+                ", programmeCode='" + programmeCode + '\'' +
+                ", enrollmentStatus='" + enrollmentStatus + '\'' +
+                ", enrolledCourses=" + enrolledCourses +
+                ", cumulativeGPA=" + cumulativeGPA +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", dOB=" + dOB +
+                ", address=" + address +
+                ", telephone='" + telephone + '\'' +
+                ", userType='" + userType + '\'' +
+                '}';
+    }
 }

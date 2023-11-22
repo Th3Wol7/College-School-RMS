@@ -1,13 +1,14 @@
 package model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity(name = "address")
-@Table(name = "address")
+@Entity(name = "Address")
+@Table(name = "Address")
 public class Address implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long addressID;
     @Column(name = "streetAddress")
     private String streetAddress;
 

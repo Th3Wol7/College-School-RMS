@@ -4,12 +4,12 @@ import factories.DBConnectorFactory;
 import factories.SessionFactoryBuilder;
 import gui.*;
 import model.*;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
+
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
