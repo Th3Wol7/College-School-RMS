@@ -16,7 +16,7 @@ import java.util.Scanner;
  * @author Tyrien Gilpin
  * */
 
-@Entity(name = "Staff")
+@Entity
 @Table(name = "Staff")
 public class Staff extends User {
 	@Id
