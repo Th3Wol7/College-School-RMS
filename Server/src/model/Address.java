@@ -3,7 +3,7 @@ package model;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity(name = "Address")
+@Entity
 @Table(name = "Address")
 public class Address implements Serializable {
     @Id

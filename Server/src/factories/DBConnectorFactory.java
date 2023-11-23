@@ -11,7 +11,6 @@ import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
 public class DBConnectorFactory {
     public static final Logger logger = LogManager.getLogger(DBConnectorFactory.class);
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm:ss");
@@ -132,8 +131,8 @@ public class DBConnectorFactory {
         try (Statement stmt = dbConn.createStatement()) {
             String query = "CREATE TABLE Programme(programmeCode varchar(10) NOT NULL, programmeName varchar(35), " +
                     "faculty varchar(10), accreditation varchar(25), " +
-                    "numOfCourses int, yearsOfStudy int, director varchar(10) " +
-                    "description varchar(100), tuition decimal(10,2), totalCredits int, PRIMARY KEY(programmeCode)" +
+                    "numOfCourses int, yearsOfStudy int, director varchar(10), " +
+                    "description varchar(100), tuition decimal(10,2), totalCredits int, PRIMARY KEY(programmeCode)," +
                     "FOREIGN KEY(faculty) REFERENCES Faculty(facultyCode), FOREIGN KEY(director) REFERENCES Staff(staffID))";
 
             if (stmt.executeUpdate(query) == 0) {
@@ -151,8 +150,8 @@ public class DBConnectorFactory {
         try (Statement stmt = dbConn.createStatement()) {
             String query = "CREATE TABLE Course(courseCode varchar(10), courseName varchar(35), " +
                     "description varchar(80), credits int, offeredBy varchar(10), prerequisite varchar(15)," +
-                    " cost decimal(10,2), FOREIGN KEY(offeredBy) REFERENCES School(schoolCode) " +
-                    "PRIMARY KEY (courseCode), FOREIGN KEY(prequisite) REFERENCES Course(courseCode))";
+                    " cost decimal(10,2), FOREIGN KEY(offeredBy) REFERENCES School(schoolCode), " +
+                    "PRIMARY KEY (courseCode), FOREIGN KEY(prerequisite) REFERENCES Course(courseCode))";
 
             if (stmt.executeUpdate(query) == 0) {
                 logger.info("Course table successfully created.");
@@ -169,7 +168,7 @@ public class DBConnectorFactory {
         try (Statement stmt = dbConn.createStatement()) {
             String query = "CREATE TABLE CourseGPA(ID identity(1,1), student varchar(10), course varchar(10)," +
                     "gpa decimal(10, 2), semester integer, 'year' year, PRIMARY KEY(ID), " +
-                    "PRIMARY KEY (ID), FOREIGN KEY(course) REFERENCES Course(courseCode)" +
+                    "PRIMARY KEY (ID), FOREIGN KEY(course) REFERENCES Course(courseCode)," +
                     "FOREIGN KEY(student) REFERENCES Student(studentID))";
 
             if (stmt.executeUpdate(query) == 0) {
@@ -187,9 +186,9 @@ public class DBConnectorFactory {
         try (Statement stmt = dbConn.createStatement()) {
             String query = "CREATE TABLE Student(studentID varchar(10) NOT NULL, firstName varchar(25)," +
                     "lastName varchar(25), dob date, programmeCode varchar(15), " +
-                    "enrollmentStatus varchar(15), dateEnrolled date, PRIMARY KEY(ID), " +
-                    "FOREIGN KEY(programmeCode) REFERENCES Programmes(programmeCode) + " +
-                    "FOREIGN KEY(ID) REFERENCES Users(ID)), FOREIGN KEY(firstName) REFERENCES User(firstName))" +
+                    "enrollmentStatus varchar(15), dateEnrolled date, PRIMARY KEY(studentID), " +
+                    "FOREIGN KEY(programmeCode) REFERENCES Programmes(programmeCode), " +
+                    "FOREIGN KEY(ID) REFERENCES Users(ID), FOREIGN KEY(firstName) REFERENCES User(firstName)," +
                     "FOREIGN KEY(lastName) REFERENCES User(lastName))";
 
             if (stmt.executeUpdate(query) == 0) {
@@ -224,9 +223,9 @@ public class DBConnectorFactory {
         try (Statement stmt = dbConn.createStatement()) {
             String query = "CREATE TABLE Staff(staffID varchar(10) NOT NULL, firstName varchar(25), " +
                     "lastName varchar(25), dob date, email varchar(30) UNIQUE, faculty varchar(30), " +
-                    "department varchar(30), occupation varchar(20), dateEmployed date, PRIMARY KEY (ID)" +
-                    "FOREIGN KEY(department) REFERENCES Department(deptID)" +
-                    "FOREIGN KEY(staffID) REFERENCES User(ID)), FOREIGN KEY(firstName) REFERENCES User(firstName))" +
+                    "department varchar(30), occupation varchar(20), dateEmployed date, PRIMARY KEY (staffID), " +
+                    "FOREIGN KEY(department) REFERENCES Department(deptID)," +
+                    "FOREIGN KEY(staffID) REFERENCES User(ID), FOREIGN KEY(firstName) REFERENCES User(firstName)," +
                     "FOREIGN KEY(lastName) REFERENCES User(lastName))";
 
             if (stmt.executeUpdate(query) == 0) {
@@ -240,12 +239,11 @@ public class DBConnectorFactory {
         }
     }
 
-    private static void createDepratmentTable() {
+    private static void createDepartmentTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE Department(deptID identity(1001,1), 'deptName' varchar(12)," +
-                    "HeadOfDept varchar(10), PRIMARY KEY(deptID), " +
+            String query = "CREATE TABLE Department(deptID identity(1001,1), deptName varchar(12)," +
+                    "HeadOfDept varchar(10), location varchar(30), PRIMARY KEY(deptID), " +
                     "FOREIGN KEY(HeadOfDept) REFERENCES Staff(staffID))";
-
             if (stmt.executeUpdate(query) == 0) {
                 logger.info("Faculty table successfully created.");
             }
@@ -277,8 +275,8 @@ public class DBConnectorFactory {
     private static void createSchoolTable() {
         try (Statement stmt = dbConn.createStatement()) {
             String query = "CREATE TABLE School(schoolCode varchar(10) NOT NULL, 'name' varchar(12), description varchar(100)," +
-                    "HeadOfSchool varchar(10), faculty varchar(10), PRIMARY KEY(facultyCode), " +
-                    "FOREIGN KEY(HeadOfSchool) REFERENCES Staff(staffID)" +
+                    "HeadOfSchool varchar(10), faculty varchar(10), PRIMARY KEY(schoolCode), " +
+                    "FOREIGN KEY(HeadOfSchool) REFERENCES Staff(staffID)," +
                     "FOREIGN KEY(faculty) REFERENCES Faculty(facultyCode))";
 
             if (stmt.executeUpdate(query) == 0) {
@@ -296,7 +294,7 @@ public class DBConnectorFactory {
         try (Statement stmt = dbConn.createStatement()) {
             String query = "CREATE TABLE Enrolled(studentID varchar(10) NOT NULL, courseCode varchar(10) NOT NULL, " +
                     "programmeCode varchar(10) NOT NULL, semestser integer, PRIMARY KEY (studentID, courseCode), " +
-                    "FOREIGN KEY studentID REFERENCES Students(ID), FOREIGN KEY courseCode " +
+                    "FOREIGN KEY (studentID) REFERENCES Students(ID), FOREIGN KEY (courseCode), " +
                     "REFERENCES Course(CourseCode), FOREIGN KEY programmeCode REFERENCES Programme(programmeCode))";
 
             if (stmt.executeUpdate(query) == 0) {
@@ -311,12 +309,11 @@ public class DBConnectorFactory {
     }
 
 
-
     private static void createHAYDatabase() {
         try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
              Statement stmt = conn.createStatement()
         ) {
-            String query = "CREATE DATABASE IF NOT EXISTS H&AY";
+            String query = "CREATE DATABASE IF NOT EXISTS HaAy";
             if (stmt.executeUpdate(query) == 0) {
                 logger.info("HaAy Database created");
                 System.out.println("HaAy Database created");

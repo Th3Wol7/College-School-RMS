@@ -1,8 +1,12 @@
 package model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "School")s
 public class School {
     @Id
     @Column(name = "schoolCode")

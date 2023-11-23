@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "User")
 @SecondaryTable(name = "Telephone", pkJoinColumns = @PrimaryKeyJoinColumn(name = "ID"))
 public class User implements Serializable{
 	@Id
