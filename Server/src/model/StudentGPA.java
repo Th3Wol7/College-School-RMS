@@ -8,9 +8,10 @@ import java.io.Serializable;
 public class StudentGPA implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
 
-    @Column(name = "studentID")
+    @Column(name = "student")
     private String studentID;
 
     @Column(name = "semester")

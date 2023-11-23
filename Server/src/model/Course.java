@@ -22,6 +22,9 @@ public class Course implements Serializable {
     @Column(name = "prerequisite")
     private String prerequisite;
 
+    @Column(name = "cost")
+    private double cost;
+
     //Default Constructor
     public Course() {
         setCourseCode("N/A");
@@ -29,15 +32,17 @@ public class Course implements Serializable {
         setDescription("N/A");
         setCredits(-1);
         setPrerequisite("none");
+        setCost(0.00);
     }
 
     //Primary Constructor
-    public Course(String courseCode, String courseName, String description, int credits, String prerequisite) {
+    public Course(String courseCode, String courseName, String description, int credits, String prerequisite, double cost) {
         setCourseCode(courseCode);
         setCourseName(courseName);
         setDescription(description);
         setCredits(credits);
         setPrerequisite(prerequisite);
+        setCost(cost);
     }
 
     //Copy Constructor
@@ -47,6 +52,7 @@ public class Course implements Serializable {
         setDescription(obj.description);
         setCredits(obj.credits);
         setPrerequisite(obj.prerequisite);
+        setCost(obj.cost);
     }
 
     public String getCourseCode() {
@@ -89,11 +95,23 @@ public class Course implements Serializable {
         this.prerequisite = prerequisite;
     }
 
-    @Override
-    public String toString() {
-        return "Course [getCourseCode()=" + getCourseCode() + ", getCourseName()=" + getCourseName()
-                + ", getDescription()=" + getDescription() + ", getCredits()=" + getCredits() + ", getPrerequisite()="
-                + getPrerequisite() + "]";
+    public double getCost() {
+        return cost;
     }
 
+    public void setCost(double cost) {
+        this.cost = cost;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseCode='" + getCourseCode() + '\t' +
+                ", courseName='" + getCourseName() + '\t' +
+                ", description='" + getDescription() + '\t' +
+                ", credits=" + getCredits() +'\t'+
+                ", prerequisite='" + getPrerequisite() + '\t' +
+                ", cost=" + getCost() +
+                '}';
+    }
 }

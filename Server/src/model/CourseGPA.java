@@ -14,11 +14,14 @@ public class CourseGPA implements Serializable{
     @Column(name = "studentID")
     private String studentID;
 
-    @Column(name = "courseID")
-    private String courseID;
+    @Column(name = "courseCode")
+    private String courseCode;
 
     @Column(name = "gpa")
     private double gpa;
+
+    @Column(name = "semester")
+    private int semester;
 
     @Column(name = "year")
     private int year;
@@ -27,24 +30,27 @@ public class CourseGPA implements Serializable{
     //Default Constructor
     public CourseGPA(){
         setStudentID("N/A");
-        setCourseID("N/A");
+        setCourseCode("N/A");
         setGpa(0.00);
+        setSemester(0);
         setYear(0000);
     }
 
     //Primary Constructor
-    public CourseGPA(String studentID, String courseID, float gpa, int year){
+    public CourseGPA(String studentID, String courseCode, float gpa, int semester, int year){
         setStudentID(studentID);
-        setCourseID(courseID);
+        setCourseCode(courseCode);
         setGpa(gpa);
+        setSemester(semester);
         setYear(year);
     }
 
     //Copy Constructor
     public CourseGPA( CourseGPA obj){
         setStudentID(obj.studentID);
-        setCourseID(obj.courseID);
+        setCourseCode(obj.courseCode);
         setGpa(obj.gpa);
+        setSemester(obj.semester);
         setYear(obj.year);
     }
 
@@ -65,12 +71,12 @@ public class CourseGPA implements Serializable{
         this.studentID = studentID;
     }
 
-    public String getCourseID() {
-        return courseID;
+    public String getCourseCode() {
+        return courseCode;
     }
 
-    public void setCourseID(String courseID) {
-        this.courseID = courseID;
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
     }
 
     public double getGpa() {
@@ -79,6 +85,14 @@ public class CourseGPA implements Serializable{
 
     public void setGpa(double gpa) {
         this.gpa = gpa;
+    }
+
+    public int getSemester() {
+        return semester;
+    }
+
+    public void setSemester(int semester) {
+        this.semester = semester;
     }
 
     public int getYear() {
@@ -92,11 +106,12 @@ public class CourseGPA implements Serializable{
     @Override
     public String toString() {
         return "CourseGPA{" +
-                "id=" + id +
-                ", studentID='" + studentID + '\'' +
-                ", courseID='" + courseID + '\'' +
-                ", gpa=" + gpa +
-                ", year=" + year +
+                "id=" + getId() +
+                ", studentID='" + getStudentID() + '\'' +
+                ", courseCode='" + getCourseCode() + '\'' +
+                ", gpa=" + getGpa() +
+                ", semester=" + getSemester() +
+                ", year=" + getYear() +
                 '}';
     }
 }

@@ -28,6 +28,7 @@ public class Staff extends User {
 
 	@Column(name = "department")
     private String department;
+
     @Column(name = "dateEmployed")
 	private Date dateEmployed;
 

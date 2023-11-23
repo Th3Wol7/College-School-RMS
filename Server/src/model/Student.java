@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "Student")
 public class Student extends User implements Serializable {
     @Id
-    @Column(name = "ID")
+    @Column(name = "studentID")
     private String studentID;
     @Column(name = "dateEnrolled")
     @Temporal(TemporalType.DATE)

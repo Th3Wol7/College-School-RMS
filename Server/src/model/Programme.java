@@ -25,12 +25,13 @@ public class Programme implements Serializable{
 	@Column(name = "description")
 	private String Description;
 
-	@Column(name = "cost")
-	private double cost;
+	@Column(name = "tuition")
+	private double tuition;//where tuiton is an estimated yearly programme cost
 
 	@Column(name = "totalCredits")
 	private int minimumCredits = -1;
 
+	@Column(name= "director")
 	private String director; //programme director identified by user ID
 
 	//Default Constructor
@@ -42,13 +43,13 @@ public class Programme implements Serializable{
 		setNumOfCourses(-1);
 		setMinimumCredits(-1);
 		setLength("N/A");
-		setCost(0.0);
+		settuition(0.0);
 		setDirector("Admin");
 	}		
 	
 	//Primary Constructor
 	public Programme(String programmeCode, String programmeName, String accreditation, String description,
-					 String director, int numOfCourses, int totalCredits, String length, double cost) {
+					 String director, int numOfCourses, int totalCredits, String length, double tuition) {
 		setProgrammeCode(programmeCode);
 		setProgrammeName(programmeName);
 		setAccreditation(accreditation);
@@ -56,7 +57,7 @@ public class Programme implements Serializable{
 		setDescription(description);
 		setMinimumCredits(totalCredits);
 		setLength(length);
-		setCost(cost);
+		settuition(tuition);
 		setDirector(director);
 	}
 	
@@ -69,7 +70,7 @@ public class Programme implements Serializable{
 		setDescription(obj.getDescription());
 		setMinimumCredits(obj.getMinimumCredits());
 		setLength(obj.getLength());
-		setCost(obj.getCost());
+		settuition(obj.gettuition());
 		setDirector(obj.getDirector());
 	}
 
@@ -122,12 +123,12 @@ public class Programme implements Serializable{
 		Description = description;
 	}
 
-	public double getCost() {
-		return cost;
+	public double gettuition() {
+		return tuition;
 	}
 
-	public void setCost(double cost) {
-		this.cost = cost;
+	public void settuition(double tuition) {
+		this.tuition = tuition;
 	}
 
 	public int getMinimumCredits() {
@@ -155,7 +156,7 @@ public class Programme implements Serializable{
 				", numOfCourses=" + numOfCourses +
 				", length='" + length + '\'' +
 				", Description='" + Description + '\'' +
-				", cost=" + cost +
+				", tuition=" + tuition +
 				", minimumCredits=" + minimumCredits +
 				", director='" + director + '\'' +
 				'}';
