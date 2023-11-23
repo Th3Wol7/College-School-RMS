@@ -1420,6 +1420,90 @@ public class Server {
         }
     }
 
+    public void removeDepartment(String deptID) throws IOException {
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            Department department = session.get(Department.class, deptID);
+            session.save(deptID);
+            transaction.commit();
+            objOs.writeObject(true);
+        } catch (HibernateException e) {
+            logger.error("HibernateException: " + e.getMessage());
+            transaction.rollback();
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (IOException e) {
+            transaction.rollback();
+            logger.error("IOException: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (Exception e) {
+            transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } finally {
+            session.close();
+        }
+    }
+
+    public void removeFaculty(String facultyCode) throws IOException {
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            Faculty faculty = session.get(Faculty.class, facultyCode);
+            session.save(faculty);
+            transaction.commit();
+            objOs.writeObject(true);
+        } catch (HibernateException e) {
+            logger.error("HibernateException: " + e.getMessage());
+            transaction.rollback();
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (IOException e) {
+            transaction.rollback();
+            logger.error("IOException: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (Exception e) {
+            transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } finally {
+            session.close();
+        }
+    }
+
+    public void removeSchool(String schoolCode) throws IOException {
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            School school = session.get(School.class, schoolCode);
+            session.save(schoolCode);
+            transaction.commit();
+            objOs.writeObject(true);
+        } catch (HibernateException e) {
+            logger.error("HibernateException: " + e.getMessage());
+            transaction.rollback();
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (IOException e) {
+            transaction.rollback();
+            logger.error("IOException: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (Exception e) {
+            transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } finally {
+            session.close();
+        }
+    }
+
     public void removeProgramme(String programmeCode) throws IOException {
         Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
         Transaction transaction = session.beginTransaction();
