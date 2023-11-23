@@ -1625,6 +1625,9 @@ public class Server {
             Student student;
             Course course;
             Staff staff;
+            Department department;
+            Faculty faculty;
+            School school;
             StudentGPA studentGPA;
             CourseGPA courseGPA;
             Programme programme;
@@ -1724,6 +1727,75 @@ public class Server {
                 if (action.equals("Remove Staff")) {
                     String StaffId = (String) objIs.readObject();
                     removeStaff(StaffId);
+                }
+                if (action.equals("Add Department")) {
+                    department = (Department) objIs.readObject();
+                    addDepartment(department);
+                }
+                if (action.equals("Update Department")) {
+                    department = (Department) objIs.readObject();
+                    updateDepartment(department);
+                }
+                if (action.equals("View Department")) {
+                    List<Department> departmentList = getAllDepartments();
+                    for (Department dept : departmentList) {
+                        objOs.writeObject(dept);
+                    }
+                }
+                if (action.equals("Find Department")) {
+                    String deptId = (String) objIs.readObject();
+                    department = getDepartment(deptId);
+                    objOs.writeObject(department);
+                }
+                if (action.equals("Remove Department")) {
+                    String deptId = (String) objIs.readObject();
+                    removeDepartment(deptId);
+                }
+                if (action.equals("Add Faculty")) {
+                    faculty = (Faculty) objIs.readObject();
+                    addFaculty(faculty);
+                }
+                if (action.equals("Update Faculty")) {
+                    faculty = (Faculty) objIs.readObject();
+                    updateFaculty(faculty);
+                }
+                if (action.equals("View Faculty")) {
+                    List<Faculty> facultyList = getAllFaculties();
+                    for (Faculty flt : facultyList) {
+                        objOs.writeObject(flt);
+                    }
+                }
+                if (action.equals("Find Faculty")) {
+                    String facultyCode = (String) objIs.readObject();
+                    faculty = getFaculty(facultyCode);
+                    objOs.writeObject(faculty);
+                }
+                if (action.equals("Remove Faculty")) {
+                    String facutyCode = (String) objIs.readObject();
+                    removeFaculty(facutyCode);
+                }
+                if (action.equals("Add School")) {
+                    school = (School) objIs.readObject();
+                    addSchool(School);
+                }
+                if (action.equals("Update School")) {
+                    school = (School) objIs.readObject();
+                    updateSchool(school);
+                }
+                if (action.equals("View School")) {
+                    List<School> schoolList = getAllSchools();
+                    for (School schl : schoolList) {
+                        objOs.writeObject(schl);
+                    }
+                }
+                if (action.equals("Find School")) {
+                    String schoolCode = (String) objIs.readObject();
+                    school = getSchool(schoolCode);
+                    objOs.writeObject(school);
+                }
+                if (action.equals("Remove School")) {
+                    String schoolCode = (String) objIs.readObject();
+                    removeSchool(schoolCode);
                 }
                 if (action.equals("Add Course")) {
                     course = (Course) objIs.readObject();
