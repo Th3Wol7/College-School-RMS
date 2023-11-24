@@ -32,7 +32,7 @@ import java.net.ServerSocket;
 
 public class ServerScreen extends JFrame implements ActionListener {
     private final ServerSocket serverSocket;
-    private final Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/res/tray_icon.png"));
+    private final Image image = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/res/startupImage.png"));
     private JPanel panel;
     private static JTextArea textArea;
     private JLabel statusLabel, requestsLabel;

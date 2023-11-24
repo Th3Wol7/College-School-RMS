@@ -1776,7 +1776,7 @@ public class Server {
                 }
                 if (action.equals("Add School")) {
                     school = (School) objIs.readObject();
-                    addSchool(School);
+                    addSchool(school);
                 }
                 if (action.equals("Update School")) {
                     school = (School) objIs.readObject();
