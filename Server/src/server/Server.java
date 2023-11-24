@@ -745,25 +745,30 @@ public class Server {
     }
 
     //NTS: Come back to check this method it's incorrect
-    public void updateEnrollment(Student student) {
+    public void updateEnrollment(Enrollment enrollment) throws IOException{
         Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         try {
-            for(Course courseCode: student.getEnrolledCourses()) {
-                String sql = "INSERT INTO Enrolled (studentID, courseCode, programmeCode) VALUES (:studentID, :courseCode, :programmeCode)";
-                session.createNativeQuery(sql)
-                        .setParameter("studentID", student.getStudentID())
-                        .setParameter("courseCode", courseCode)
-                        .setParameter("programmeCode", student.getProgrammeCode())
-                        .executeUpdate();
-
-                transaction.commit();
-            }
+            session.update(enrollment);
+            transaction.commit();
+            objOs.writeObject(true);
         } catch (HibernateException e) {
             logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (IOException e) {
+            transaction.rollback();
+            logger.error("IOException: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (Exception e) {
+            transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } finally {
+            session.close();
         }
     }
 
@@ -1031,13 +1036,13 @@ public class Server {
         return address;
     }
 
-    /*/NTS: Come back to check this method it's incorrect
+
     private Enrollment getEnrollment(int enrollmentID) throws IOException {
         Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
         Transaction transaction = session.beginTransaction();
         Enrollment enrollment = null;
         try {
-            enrollment = session.get(Address.class,enrollmentID);;
+            enrollment = session.get(Enrollment.class,enrollmentID);;
             transaction.commit();
         } catch (HibernateException e) {
             logger.error("HibernateException: " + e.getMessage());
@@ -1053,7 +1058,7 @@ public class Server {
             session.close();
         }
         return enrollment;
-    }*/
+    }
 
 
     /////////////////////////Select All Queries////////////
@@ -1310,6 +1315,29 @@ public class Server {
             session.close();
         }
         return addressList;
+    }
+
+    private List<Enrollment> getAllEnrollment() throws IOException {
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        List<Enrollment> enrollmentList = null;
+        try {
+            enrollmentList = (List<Enrollment>) session.createQuery("FROM Enrollment").getResultList();
+            transaction.commit();
+        } catch (HibernateException e) {
+            logger.error("HibernateException: " + e.getMessage());
+            transaction.rollback();
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (Exception e) {
+            transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } finally {
+            session.close();
+        }
+        return enrollmentList;
     }
 
     ///////////////////Remove Queries/////////////////////////
@@ -1621,6 +1649,33 @@ public class Server {
             session.close();
         }
     }
+    public void removeEnrollment(int enrollID) throws IOException {
+        Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            Enrollment enrollment = session.get(Enrollment.class, enrollID);
+            session.delete(enrollment);
+            transaction.commit();
+            objOs.writeObject(true);
+        } catch (HibernateException e) {
+            logger.error("HibernateException: " + e.getMessage());
+            transaction.rollback();
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (IOException e) {
+            transaction.rollback();
+            logger.error("IOException: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (Exception e) {
+            transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } finally {
+            session.close();
+        }
+    }
 
 
     class ClientHandler implements Runnable {
@@ -1638,6 +1693,7 @@ public class Server {
             CourseGPA courseGPA;
             Programme programme;
             Address address;
+            Enrollment enrollment;
             configureStreams();
             try {
                 action = (String) objIs.readObject();
@@ -1890,6 +1946,29 @@ public class Server {
                     List<Address> AddressList = getAllAddress();
                     for (Address adrs : AddressList) {
                         objOs.writeObject(adrs);
+                    }
+                }
+                if (action.equals("Add Enrollment")) {
+                    enrollment = (Enrollment) objIs.readObject();
+                    addEnrollment(enrollment);
+                }
+                if (action.equals("Update Enrollment")) {
+                    enrollment = (Enrollment) objIs.readObject();
+                    updateEnrollment(enrollment);
+                }
+                if (action.equals("Find Enrollment")) {
+                    int enrollmentID = (int) objIs.readObject();
+                    enrollment = getEnrollment(enrollmentID);
+                    objOs.writeObject(enrollment);
+                }
+                if (action.equals("Remove Enrollment")) {
+                    int enrollmentID = (int) objIs.readObject();
+                    removeEnrollment(enrollmentID);
+                }
+                if (action.equals("View Enrollment")) {
+                    List<Enrollment> EnrollmentList = getAllEnrollment();
+                    for (Enrollment enroll : EnrollmentList) {
+                        objOs.writeObject(enroll);
                     }
                 }
             } catch (IOException e) {
