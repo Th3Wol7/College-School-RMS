@@ -34,3 +34,8 @@ Basic requirements. The prototype should:
   ▪ Add Course. 
   ▪ Generate Fee Breakdown for Semester
   o Generate Progress Report.
+
+hibernate 5.14
+mysql connector j
+java persistence
+apache log4j

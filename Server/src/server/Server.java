@@ -417,27 +417,33 @@ public class Server {
     }
 
     //NTS: Come back to check this method
-    public void addEnrollment(Student student) {
+    public void addEnrollment(Enrollment enrollment) throws IOException {
         Session session = SessionFactoryBuilder.getSessionFactory().getCurrentSession();
         Transaction transaction = session.beginTransaction();
-
         try {
-            for (Course courseCode : student.getEnrolledCourses()) {
-                String sql = "INSERT INTO Enrolled (studentID, courseCode, programmeCode) VALUES (:studentID, :courseCode, :programmeCode)";
-                session.createNativeQuery(sql)
-                        .setParameter("studentID", student.getStudentID())
-                        .setParameter("courseCode", courseCode)
-                        .setParameter("programmeCode", student.getProgrammeCode())
-                        .executeUpdate();
-
-                transaction.commit();
-            }
+            session.save(enrollment);
+            transaction.commit();
+            objOs.writeObject(true);
         } catch (HibernateException e) {
             logger.error("HibernateException: " + e.getMessage());
             transaction.rollback();
             e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (IOException e) {
+            transaction.rollback();
+            logger.error("IOException: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } catch (Exception e) {
+            transaction.rollback();
+            logger.error("Unexpected error: " + e.getMessage());
+            e.printStackTrace();
+            objOs.writeObject(false);
+        } finally {
+            session.close();
         }
     }
+
 
     //////////////////////Update queries///////////////////
 

@@ -1,10 +1,7 @@
 package model;
 
 import javax.persistence.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -18,7 +15,7 @@ import java.util.Scanner;
 
 @Entity
 @Table(name = "Staff")
-public class Staff extends User {
+public class Staff extends User implements Serializable {
 	@Id
 	@Column(name = "ID")
     private String staffID;
