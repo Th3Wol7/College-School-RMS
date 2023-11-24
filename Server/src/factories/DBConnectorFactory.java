@@ -289,8 +289,8 @@ public class DBConnectorFactory {
 
     private static void createEnrollTable() {
         try (Statement stmt = dbConn.createStatement()) {
-            String query = "CREATE TABLE Enrolled(studentID varchar(10) NOT NULL, courseCode varchar(10) NOT NULL, " +
-                    "programme varchar(10) NOT NULL, semestser integer, year year, PRIMARY KEY (studentID, courseCode), " +
+            String query = "CREATE TABLE Enrolled(enrollemntID INT AUTO_INCREMENT, studentID varchar(10) NOT NULL, courseCode varchar(10) NOT NULL, " +
+                    "programme varchar(10) NOT NULL, semestser integer, year year, PRIMARY KEY (enrollemntID), " +
                     "FOREIGN KEY (studentID) REFERENCES Student(studentID), " +
                     "FOREIGN KEY (courseCode) REFERENCES Course(courseCode), " +
                     "FOREIGN KEY (programme) REFERENCES Programme(programmeCode))";

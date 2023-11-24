@@ -1,15 +1,25 @@
 package model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "Enrolled")
 public class Enrollment {
+    @Column(name = "student")
     private String studentID;
+
+    @Column(name = "course")
     private String courseCode;
+
+    @Column(name = "programme")
     private String programmeCode;
+
+    @Column(name = "semseter")
     private int semester;
+
+    @Column(name = "year")
     private int year;
 
     public Enrollment() {
